@@ -1,11 +1,15 @@
-3
-1 2 3
-10
-15
-5 5
-5 15 20
-1 2 1
-847
-2210
-920 112
-692
+// Function to generate primes using Sieve of Eratosthenes
+vector<bool> sieveOfEratosthenes(int n) {
+    vector<bool> isPrime(n + 1, true); // Initialize all numbers as prime
+    isPrime[0] = isPrime[1] = false;  // 0 and 1 are not prime numbers
+
+    for (int i = 2; i * i <= n; ++i) {
+        if (isPrime[i]) {
+            // Mark multiples of i as non-prime
+            for (int j = i * i; j <= n; j += i) {
+                isPrime[j] = false;
+            }
+        }
+    }
+    return isPrime;
+}

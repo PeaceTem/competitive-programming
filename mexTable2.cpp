@@ -2,9 +2,6 @@
 
 using namespace std;
 
-
-
-
 int main()
 {
     short t;

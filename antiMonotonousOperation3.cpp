@@ -1,25 +1,67 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <numeric>
-
+#include <bits/stdc++.h>
 
 using namespace std;
 
 // learn how to reference an array in c++
 
+/*  NEW SOLUTION
+use dynamic programming
+start from 0 -> n, store the cummulative sum and operation of the part that was optimized;
+check if you can optimize both left and right at the same time. ..., 3, 1, 1, 2, ...
+TO
+
+..., 3, 3, 2, 2, ... and continue optimizing both ways and choose the solution with the highest total.
+-1 , 0, 1 as indicator
+return type (index[1,1] will be 1 instead of 0, [-1, 0, 1] direction, sum, operations)
+*/
+
+
+int forward_pass(vector<int> *arr, int *max_val){
+    // forward pass
+    for(int i = 0; i < arr.size() - 1; i++){
+        if(arr[i] == arr[i + 1] && arr[i] != max_val){
+            arr[i] = max_val;
+
+            arr[i + 1] = i + 1 < len_arr - 1 ? (arr[i + 2] != max_val ? arr[i - 2] : max_val - 1) : max_val - 1;
+            op++;
+
+        }
+    }
+    return 0;
+}
+
+
+
+int backward_pass(vector<int> *arr, int *max_val){
+    // backward pass
+    for(int i = arr.size() - 1; i > - 1; i--){
+        if(arr[i] == arr[i - 1] && arr[i] != max_val){
+            arr[i] = max_val;
+
+            arr[i - 1] = i - 1 > 0 ? (arr[i - 2] != max_val ? arr[i - 2] : max_val - 1) : max_val - 1;
+            op++;
+
+        }
+    }
+    return 0;
+}
+
+int total_pos(vector<int> *arr, int *start, int *end){
+    int total = 0;
+    for(int i = start; i<= end; i++){
+        total += arr[i];
+    }
+    return total;
+}
+
+
 int main(){
-    string T, n, w;
+    int T, len_arr, max_val;
 
     cin >> T;
-    int test_cases {stoi(T)};
-    for (int i = 0; i < test_cases; i++){
-        cin >> n >> w;
-        int len_arr {stoi(n)};
-        int max_val {stoi(w)};
+    while(T--){
+        cin >> len_arr >> max_val;
         vector<int> sequence(len_arr);
-
-
 
         for (int j = 0; j < len_arr; ++j) {
             cin >> sequence[j];
@@ -36,38 +78,11 @@ int main(){
         //     done = true;
         bool forward = true;
 
-            // forward pass
-            for(int i = 0; i < len_arr - 1; i++){
-                if(sequence[i] == sequence[i + 1] && sequence[i] != max_val){
-                    sequence[i] = max_val;
-
-                    sequence[i + 1] = i + 1 < len_arr - 1 ? (sequence[i + 2] != max_val ? sequence[i - 2] : max_val - 1) : max_val - 1;
-                    op++;
-
-                }
-            }
-
-            // backward pass
-            for(int i = len_arr - 1; i > - 1; i--){
-                if(sequence[i] == sequence[i - 1] && sequence[i] != max_val){
-                    sequence[i] = max_val;
-
-                    sequence[i - 1] = i - 1 > 0 ? (sequence[i - 2] != max_val ? sequence[i - 2] : max_val - 1) : max_val - 1;
-                    op++;
-
-                }
-            }
+            
 
             if(op > 0){
 
             }
-
-            // for(int i = 0; i < len_arr - 1; i++){
-            //     if(sequence[i] == sequence[i+1] && sequence[i] != max_val){
-            //         done = false;
-            //     }
-            // }
-        // }
         cout << accumulate(sequence.begin(), sequence.end(), 0) << " " << op << endl;
     }
 }

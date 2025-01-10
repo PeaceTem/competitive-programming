@@ -3,12 +3,8 @@
 using namespace std;
 
 
-
-
-
 int main()
 {
-
     short k,w; int n;
 
     cin >> k >> n >> w;
