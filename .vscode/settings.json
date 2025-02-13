@@ -46,6 +46,12 @@
         "typeinfo": "cpp",
         "xstring": "cpp",
         "xutility": "cpp",
-        "forward_list": "cpp"
+        "forward_list": "cpp",
+        "xtr1common": "cpp",
+        "bitset": "cpp",
+        "xmemory": "cpp",
+        "xlocale": "cpp",
+        "xiosbase": "cpp",
+        "list": "cpp"
     }
 }

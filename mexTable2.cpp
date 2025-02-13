@@ -11,16 +11,9 @@ int main()
         int n, m;
 
         cin >> n >> m;
-
-
-        // Populate the grid with sequential numbers
-        // vector<vector<int>> grid(n, vector<int>(m));
-        
         int mex = n > m ? 1 + n : 1 + m;
         
         cout << mex << endl;
-
-
         }
 
 

@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+// Function to generate primes using Sieve of Eratosthenes
+vector<bool> sieveOfEratosthenes(int n) {
+    vector<bool> isPrime(n + 1, true); // Initialize all numbers as prime
+    isPrime[0] = isPrime[1] = false;  // 0 and 1 are not prime numbers
+
+    for (int i = 2; i * i <= n; ++i) {
+        if (isPrime[i]) {
+            // Mark multiples of i as non-prime
+            for (int j = i * i; j <= n; j += i) {
+                isPrime[j] = false;
+            }
+        }
+    }
+    return isPrime;
+}
+
+
+
+int main(){
+
+    vector<bool> primes = sieveOfEratosthenes(1000);
+
+    
+
+    if(primes[701]) cout << "YES" << "\n";
+    else cout << "NO" << "\n";
+
+    return 0;
+}
