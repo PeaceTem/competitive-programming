@@ -1,6 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
+// for (int &x : a) cin >> x;
+
+
 void solve(){
     int n; cin>>n;
 	string x; cin >> x; int ct = 0, res=0;

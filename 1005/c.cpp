@@ -1,32 +1,34 @@
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
 
+
+long long rem_end(vector<int>& b){
+	long long ans = 0;
+	for(int i=0;i<b.size();i++){
+
+	}
+}
 void solve(){
-    int n; cin>>n; vector<int> a(n);
-	long long ans=0, anss=0, f=0;
+    int n; cin>>n; vector<int> a(n); vector<long long> b(n, 0);
 
 	for(int i=0;i<n;i++){
 		cin>>a[i];
 	}
 
-
-	for(int i=0;i<n;i++){
-		if(a[i] > 0){ 
-			anss += abs(a[i]);
-		} else {
-			for(int k=i; k<n; k++){
-				if(a[k] < 0) anss += abs(a[k]);
-				else{
-					i=k-1; anss=0; break;
-				}
-			}
+	b[0] = abs(a[0]);
+	for(int i=1;i<n;i++){
+		if((a[i-1] < 0 and a[i] < 0) or (a[i-1]>0 and a[i]<0)){
+			b[i] = b[i-1] + abs(a[i]);
+		} else if(a[i-1]>0 and a[i]>0){
+			b[i]=b[i-1] + abs(a[i]);
+		} else if(a[i-1]<0 and a[i]>0){
+			b[i] = abs(a[i]);
 		}
-		f = max(anss,f);
-
 	}
 
-	cout << max(f, anss) << '\n';
-
+	auto it = max_element(b.begin(), b.end());
+	cout << *it << '\n';
 }
 
 int main(){
