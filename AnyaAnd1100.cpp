@@ -1,31 +1,46 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-string x_x;
-bool query(){
-    bool result = false;
-    for(int i=0;i<x_x.length()-3; i++){
-        if(x_x[i] == '1' && x_x[i+1] == '1' && x_x[i+2] == '0' && x_x[i+3] == '0'){
-            result = true; break;
+string x_x; map<int, int> m;
+bool query(int &k, char &l){
+    k--; // use map
+    bool found =false; int index=-1;
+
+
+    for(int i=k-3;i<=k;i++){
+        if(m.count(i)){
+            m.erase(i);index=i;break;
         }
     }
 
-    return result;
+    x_x[k]=l;
+    for(int i=k-3;i<=k;i++){
+        if(x_x[i] == '1' && x_x[i+1] == '1' && x_x[i+2] == '0' && x_x[i+3] == '0'){
+            m[i]++;
+        }
+    }
+
+    return m.size();
 }
-// use binary search
-// store all the indices of 1100<pair<int, int>>; whenever any query coming in is going to change it. remove the pair from the vector
-// if the vector is not empty "YES", else "NO"
+
+ void precompute(){
+    for(int i=0;i<x_x.length()-3; i++){
+        if(x_x[i] == '1' && x_x[i+1] == '1' && x_x[i+2] == '0' && x_x[i+3] == '0'){
+            m[i]++;
+        }
+    }
+ }
 
 void solve(){
     string x; cin>>x;
     int n, k; cin>>n; char l; 
-    x_x = x;
+    x_x = x; m.clear();
+    precompute();
 
     while(n--){
         cin>>k>>l;
-        x_x[k-1] = l;
-        bool ans = query();
-        cout<<(ans ? "YES" : "NO")<<endl;
+        bool ans = query(k,l);
+        cout<<(ans ? "YES" : "NO")<<'\n';
     }
 
 }
