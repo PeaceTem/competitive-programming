@@ -4,12 +4,14 @@ typedef long long ll;
 
 void solve(){
     int n; cin>>n;
-    vector<int> a(n);
-    for(int i=0;i<n;i++) cin>>a[i];
+    int ab = n/15; int rem = n%15;
     
+    int ans = ab * 3 + (min(rem,2) + 1);
+
+    cout << ans << '\n';
 }
 int main(){
-	std::ios::sync_with_stdio(false);
-	std::cin.tie(nullptr), std::cout.tie(nullptr);
-	int t; cin>>t; while(t-->0) solve(); return 0;
+	// std::ios::sync_with_stdio(false);
+	// std::cin.tie(nullptr), std::cout.tie(nullptr);
+	int t; cin>>t; while(t--) solve(); return 0;
 }
