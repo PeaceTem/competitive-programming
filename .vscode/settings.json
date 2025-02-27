@@ -53,6 +53,23 @@
         "xlocale": "cpp",
         "xiosbase": "cpp",
         "list": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "xhash": "cpp",
+        "xtree": "cpp",
+        "charconv": "cpp",
+        "cstring": "cpp",
+        "ctime": "cpp",
+        "format": "cpp",
+        "ios": "cpp",
+        "locale": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp",
+        "xfacet": "cpp",
+        "xlocbuf": "cpp",
+        "xlocinfo": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xlocnum": "cpp",
+        "xloctime": "cpp"
     }
 }
