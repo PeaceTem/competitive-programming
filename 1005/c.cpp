@@ -1,34 +1,41 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-
-
-long long rem_end(vector<int>& b){
-	long long ans = 0;
-	for(int i=0;i<b.size();i++){
-
+vector<ll> cnt(200001,0LL);
+vector<ll> a;
+int n; ll ps = 0;
+void get_max(int i){
+	// if(i<0 || i==n) return 0;
+	if(a[i] < 0LL){
+		if(i-1 < 0LL) cnt[i] = abs(a[i]);
+		else cnt[i] = cnt[i-1] + abs(a[i]);
+	} else {
+		if(i-1 < 0LL ) cnt[i] = a[i];
+		else if(a[i-1]<0LL) cnt[i] = a[i]+ps;
+		else cnt[i] = a[i] + cnt[i-1];
+		ps+=(long long) a[i];
 	}
 }
 void solve(){
-    int n; cin>>n; vector<int> a(n); vector<long long> b(n, 0);
+    cin>>n; fill(cnt.begin(),cnt.end(),0LL);
+	a.resize(n); ps = 0;
+	for(auto& it : a) cin>>it;
 
 	for(int i=0;i<n;i++){
-		cin>>a[i];
+		get_max(i);
 	}
-
-	b[0] = abs(a[0]);
-	for(int i=1;i<n;i++){
-		if((a[i-1] < 0 and a[i] < 0) or (a[i-1]>0 and a[i]<0)){
-			b[i] = b[i-1] + abs(a[i]);
-		} else if(a[i-1]>0 and a[i]>0){
-			b[i]=b[i-1] + abs(a[i]);
-		} else if(a[i-1]<0 and a[i]>0){
-			b[i] = abs(a[i]);
+	ll ng =0;
+	for(int i=n-1;i>=0;--i){
+		if(a[i]<0LL){
+			if(i+1<n){
+				if(a[i+1] > 0LL) cnt[i] += ng;
+			}
+			ng += abs(a[i]);
 		}
 	}
+	ll mx = *max_element(cnt.begin(), cnt.end());
 
-	auto it = max_element(b.begin(), b.end());
-	cout << *it << '\n';
+	cout <<mx<<'\n';
 }
 
 int main(){
