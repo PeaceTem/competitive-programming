@@ -4,30 +4,22 @@ using namespace std;
 
 void solve() {
     int n; cin>>n;
-    vector<int> a(n,0), c(n,0); char x; 
+    vector<string> a(n); string x; 
     for(int i=0;i<n;i++){
-
-        for(int j=0;j<n;j++){
-            cin>>x;
-            if(x=='1'){
-                // a[i] += 1;
-                if(i<j) c[i] += 1;
-            }
-        }
+        cin>>x;
+        a[i]=x;
     }
 
-    vector<int> d(n);
-    for(int i=0;i<n;i++){
-        d[i] = abs(c[i] - a[i]);
-    }
-    // for(int num : d) cout << num << ' ';
-    // cout << '\n';
-    // cout << "Working!\n";
     vector<int> b(n, 0);
     iota(b.begin(), b.end(),1);
     sort(b.begin(),b.end(),[&](int i,int j){
-        if(c[i-1] != c[j-1]) return c[i-1] > c[j-1];
-        else return i > j;
+        if(i<j){
+            if(a[i-1][j-1]=='1') return true;
+            else return false;
+        } else {
+            if(a[i-1][j-1]=='1') return false;
+            else return true;
+        }
     });
 
     for(int num : b) cout << num << ' ';
