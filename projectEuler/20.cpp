@@ -23,9 +23,23 @@ using namespace std;
 #define gcd(a, b) __gcd(a, b)
 // #define fileIO freopen("input.txt", "r", stdin); freopen("output.txt", "w
 
+void multiply(vi& digits, int c, int multiplier){
+    for(int i=0;i<digits.size(); i++){
+        int product = digits[i] * multiplier + c;
+        digits[i] = product%10;
+        c = product/10;
+    }
+    while(c) digits.push_back(c%10), c/=10;
+}
+
 
 void solve(){
+    vi digits = {1};
+    for(int i=2;i<=100;i++){
+        multiply(digits, 0, i);
+    }
 
+    cout << accumulate(all(digits), 0);
 }
 
 
