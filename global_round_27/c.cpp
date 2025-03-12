@@ -25,19 +25,25 @@ using namespace std;
 
 void solve(){
     int n; cin>>n;
-    int a[n];
-    for(int i=1; i<=n;i++) a[i-1] = i;
+    vector<int> a;
 
+    a.push_back(2); a.push_back(3); a.push_back(1); a.push_back(4); a.push_back(5);
     int nn = n;
     bool used_e = true;
-    while(nn>0);
-    int m,l,k;
-    if(n&1) m = n-2, l=n-4, k=n-5;
-    else m = n-1, l=n-3, k=n-4;
+    int k=0;
+    while(nn>0) k++, nn>>=1;
+    int l = 1<<(k-1);
 
-    swap(a[l], a[k]);
-    swap(a[l], a[m]);
-    int j =0;
+    if(n&1 || n<=8 || n==l){
+        for(int i=6; i<=n;i++) a.push_back(i);
+    } else {
+        for(int i=6;i<l-1;i++) a.push_back(i);
+        for(int i=l;i<=n;i++) a.push_back(i);
+        // for(int i=l+1;i<n;i+=2) a.push_back(i);
+        a.push_back(l-1);
+    }
+    
+    int j=0;
     for(int i=0;i<n;i++){
         if(i&1) j |= a[i];
         else j &= a[i];
