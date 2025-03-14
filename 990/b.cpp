@@ -68,41 +68,22 @@ ull bin_exp(ull a, ull b){
 }
 
 void solve(){
-	int n, m; cin>>n>>m;
-	vector<vi> a(n, vi(m)); map<int, int> ma;
-	for(int i=0;i<n;i++){	
-		for(int j=0;j<m;j++) cin>>a[i][j];
-	}
+    int n; cin>>n;
+    string s; cin>>s; map<char, int> m;
+    for(char c : s) m[c]++;
+    vector<pair<char, int>> vec;
+    for(auto& pair : m) vec.push_back(mp(pair.F, pair.S));
+    sort(vec.begin(), vec.end(), [&](const auto& p1, const auto& p2){
+        return p1.S < p2.S;
+    });
+    char x = vec.front().F, y = vec.back().F;
+    for(int i=0;i<n;i++){
+        if(s[i]==x){
+            s[i] = y; break;
+        }
+    }
 
-	for(int i =0;i<n;i++){
-		for(int j=0;j<m;j++){
-			if(ma.count(a[i][j])) continue;
-			ma[a[i][j]] = 0;
-			if(i+1<n){
-				if(a[i][j] == a[i+1][j]){
-					ma[a[i][j]]=1; continue;
-				}
-			}
-			if(j+1<m){
-				if(a[i][j] == a[i][j+1]){
-					ma[a[i][j]]=1; continue;
-				}
-			}
-		}
-	}	
-
-	// int ans = sz(ma) - 1;
-	bool k = false; int ans = 0;
-	for(auto& p : ma){
-		if(p.S == 1) k = true, ans += 2;
-		else ans += 1;
-	}
-	ans -= 1;
-	if(k) ans -= 1;
-	// else ans -= 1;
-	cout << ans << endl;
-
-	// honestly, I don't understand tf is going on.
+    cout << s << endl;
 }
 
 int main(){
