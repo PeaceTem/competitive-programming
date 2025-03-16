@@ -62,55 +62,59 @@ using namespace std;
 
 ull ans = 0ULL;
 map<int, int> m;
-vi dist(300001); 
-vector<vi> adj(300001);
-vector<bool> vis(300001);
 
 
-void udfs(int v){
+void udfs(vector<vi>& adj, vector<bool>& vis, vi& dist, int v){
+    if(vis[v]) return;
     vis[v] = true;
     for(int u: adj[v]){
         if(!vis[u]){
             dist[u] = dist[v]+1;
-            udfs(u);
+            udfs(adj, vis, dist, u);
         }
     }
 }
 
 // use this dp to update the 
-void dp(int k){
-    int kk = sz(adj[k]);
+void dp(vector<vi>& adj, vi& dist, int k){
+    int kk = sz(adj[k]); // this might be a potential bottleneck
     int dis = dist[k]+1;
     // dis++;
     int valid_nodes = m[dis] - kk;
     if(valid_nodes <=0) return;
     // cout << "kk: " << kk << ' ' << m[dis] << endl;
 
+
+    // check if you can use memoization here
     ans = (ans + (ull) valid_nodes)%998244353;
-    for(int u : adj[k]) dp(u);
+    for(int u : adj[k]) dp(adj, dist, u);
 }
 
 
 void solve(){
     int n; cin>>n; n--;
     ans = 0ULL;
-    fill(all(dist), 0);
+    // fill(all(dist), 0);
     // fill(all(adj))
     // adj.clear();
-    adj.assign(300001, vi()); // this is where the error comming from
+    // adj.assign(300001, vi()); // this is where the error comming from
+    vector<vi> adj(n+2, vi());
+    vi dist(n+2, 0); 
+    vector<bool> vis(n+2, false);
+
     // adj.clear(); adj.resize(300001);
-    fill(all(vis), false);
+    // fill(all(vis), false);
     // for(int i=0;i<n;i++) cin>>a[i];
     for(int i = 0; i < n; i++){
         int x; cin>>x;
         adj[x].pb(i+2);
     }
-    udfs(1);
+    udfs(adj, vis, dist, 1);
     for(int i=1;i<=n+1;i++){
         if(dist[i]>0) m[dist[i]]++;
     }
     ans += (1 + sz(adj[1]));
-    for(int j : adj[1]) dp(j);
+    for(int j : adj[1]) dp(adj, dist, j);
 
     cout << ans << endl;
     // for(int i=1;i<n+1;i++){

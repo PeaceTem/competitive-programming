@@ -67,44 +67,41 @@ ull bin_exp(ull a, ull b){
     return res;
 }
 
+
+// add other code snippet like sieve of erastosthenes
+
 void solve(){
-	int n, m; cin>>n>>m;
-	vector<vi> a(n, vi(m)); map<int, int> ma;
-	for(int i=0;i<n;i++){	
-		for(int j=0;j<m;j++) cin>>a[i][j];
-	}
+	int n,m; cin>>n>>m; char k;
 
-	for(int i =0;i<n;i++){
-		for(int j=0;j<m;j++){
-			if(ma.count(a[i][j])) continue;
-			ma[a[i][j]] = 0;
-			if(i+1<n){
-				if(a[i][j] == a[i+1][j]){
-					ma[a[i][j]]=1; continue;
-				}
-			}
-			if(j+1<m){
-				if(a[i][j] == a[i][j+1]){
-					ma[a[i][j]]=1; continue;
-				}
-			}
-		}
-	}	
+    vector<vector<int>> a(n, vector<int>(m));
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            cin>>k;
+            a[i][j]=k-'0';
+        }
+    }
+    int row =0, col=0, x=0;
+    for(int i=0;i<n;i++){
+        x=0;
+        for(int j=0;j<m;j++){
+            x ^=a[i][j];
+        }
 
-	// int ans = sz(ma) - 1;
-	bool k = false; int ans = 0;
-	for(auto& p : ma){
-		if(p.S == 1) k = true, ans += 2;
-		else ans += 1;
-	}
-	ans -= 1;
-	if(k) ans -= 1;
-	// else ans -= 1;
-	cout << ans << endl;
+        if(x == 1) row++;
+    }
 
-	// honestly, I don't understand tf is going on.
-	// implement the python solution later
+    for(int i=0;i<m;i++){
+        x=0;
+        for(int j=0;j<n;j++){
+            x ^=a[j][i];
+        }
+
+        if(x == 1) col++;
+    }
+
+    cout << max(row, col) << endl;
 }
+
 
 int main(){
 	std::ios::sync_with_stdio(false);

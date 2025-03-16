@@ -67,43 +67,28 @@ ull bin_exp(ull a, ull b){
     return res;
 }
 
+
+
 void solve(){
-	int n, m; cin>>n>>m;
-	vector<vi> a(n, vi(m)); map<int, int> ma;
-	for(int i=0;i<n;i++){	
-		for(int j=0;j<m;j++) cin>>a[i][j];
-	}
+	int n; cin>>n; vi a(n); map<int, int> m;
+    for(auto& it : a ) cin>>it;
+    for(int i=0;i<n;i++) m[a[i]]++;
+    // sort(all(a));
+    vii pp;
+    for(auto& p : m){
+        pp.push_back(mp(p.F, p.S));
+    }
+    auto cmp = [&](const auto& c, const auto& d){
+        return c.S < d.S;
+    };
+    sort(all(pp), cmp);
+    int l =0;
+    for(auto& p : pp){
+        if(p.S > 1) break;
+        l++;
+    }
 
-	for(int i =0;i<n;i++){
-		for(int j=0;j<m;j++){
-			if(ma.count(a[i][j])) continue;
-			ma[a[i][j]] = 0;
-			if(i+1<n){
-				if(a[i][j] == a[i+1][j]){
-					ma[a[i][j]]=1; continue;
-				}
-			}
-			if(j+1<m){
-				if(a[i][j] == a[i][j+1]){
-					ma[a[i][j]]=1; continue;
-				}
-			}
-		}
-	}	
-
-	// int ans = sz(ma) - 1;
-	bool k = false; int ans = 0;
-	for(auto& p : ma){
-		if(p.S == 1) k = true, ans += 2;
-		else ans += 1;
-	}
-	ans -= 1;
-	if(k) ans -= 1;
-	// else ans -= 1;
-	cout << ans << endl;
-
-	// honestly, I don't understand tf is going on.
-	// implement the python solution later
+    cout << (sz(pp) - l + 2*((l+1)/2)) << endl;
 }
 
 int main(){

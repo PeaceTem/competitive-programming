@@ -67,47 +67,32 @@ ull bin_exp(ull a, ull b){
     return res;
 }
 
+
+// add other code snippet like sieve of erastosthenes
+
+
 void solve(){
-	int n, m; cin>>n>>m;
-	vector<vi> a(n, vi(m)); map<int, int> ma;
-	for(int i=0;i<n;i++){	
-		for(int j=0;j<m;j++) cin>>a[i][j];
-	}
+	string s; cin>>s;
+    // int mex = 0;
+    int n = s.length();
+    vi mex(n, 0);
+    vector<bool> has(n, false);
+    if(s[0]=='0') has[0] = true, mex[0]=1;
+    for(int i= 1;i<n;i++){
+        if(s[i] == '0'){
+            if(!has[i-1]) mex[i] = mex[i-1]+1;
+            else mex[i] = mex[i-1];
+            has[i]=true;
+        } else {
+            mex[i] = mex[i-1];
+        }
+    }
 
-	for(int i =0;i<n;i++){
-		for(int j=0;j<m;j++){
-			if(ma.count(a[i][j])) continue;
-			ma[a[i][j]] = 0;
-			if(i+1<n){
-				if(a[i][j] == a[i+1][j]){
-					ma[a[i][j]]=1; continue;
-				}
-			}
-			if(j+1<m){
-				if(a[i][j] == a[i][j+1]){
-					ma[a[i][j]]=1; continue;
-				}
-			}
-		}
-	}	
-
-	// int ans = sz(ma) - 1;
-	bool k = false; int ans = 0;
-	for(auto& p : ma){
-		if(p.S == 1) k = true, ans += 2;
-		else ans += 1;
-	}
-	ans -= 1;
-	if(k) ans -= 1;
-	// else ans -= 1;
-	cout << ans << endl;
-
-	// honestly, I don't understand tf is going on.
-	// implement the python solution later
+    cout << min(2, mex.back()) << endl;
 }
 
 int main(){
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr), std::cout.tie(nullptr);
-	int t; cin>>t; while(t-->0) solve(); return 0;
+	int t=1; cin>>t; while(t-->0) solve(); return 0;
 }
