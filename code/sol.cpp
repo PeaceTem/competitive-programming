@@ -20,60 +20,43 @@ using namespace std;
 #define ld long double
 #define eps 1e-9
 
-
-
-vector<int> sieve(){
-    vector<bool> primes(2e5 + 1, true);
-
-    primes[0] = primes[1] = false;
-    for(int i = 2; i * i <= 2e5; i++){
-        if(primes[i]){
-            for(int j = i * i; j <= 2e5; j+=i) primes[j] = false;
-        }
-    }
-
-    vector<int> p;
-    for(int i = 2; i <= 2e5; i++){
-        if(primes[i]) p.push_back(i);
-    }
-
-    return p;
-}
-
-vector<int> p;
-
 void solve(){
     int n; cin >> n;
-
-    vector<int> a(n), b(n);
+    vector<int> a(n), b(n), c(n);
 
     for(int i = 0; i < n; i++) cin >> a[i];
     for(int i = 0; i < n; i++) cin >> b[i];
-    // int cnt = 0;
-    // unordered_set<int> st(a.begin(), a.end());
-
-    // why not find the prime factor of each number.
-    and use that
-    priority_queue<int> pq;
-    int ans = 2;
-    int k = p.size();
-    for(int i = 0; i < k; i++){
-        // if(st.count(p[i]) == 0 && p[i] > 2 ) continue;
-        for(int j = 0; j < n; j++){
-            pq.push((a[j] % p[i] ? p[i] - a[j] % p[i] : 0));
-            if(pq.size() > 2) pq.pop();
+    for(int i = 0; i < n; i++) cin >> c[i];
+    long long ans = n;
+    int cnt = 0;
+    for(int i = 0; i < n; i++){
+        int k = i; bool t = true;
+        for(int j = 0; j < n; j++, k = (k + 1) % n){
+            if(b[k] >= c[j]){
+                t = false;
+                break;
+            }
         }
 
-        int cur = 0;
-        while(!pq.empty()){
-            cur += pq.top();
-            pq.pop();
-        }
-        ans = min(ans, cur);
-
-        if(ans == 0) break;
+        if(t) cnt++;
     }
 
+    ans *= cnt;
+    cnt = 0;
+
+    for(int i = 0; i < n; i++){
+        int k = i; bool t = true;
+        for(int j = 0; j < n; j++, k = (k + 1) % n){
+            if(a[k] >= b[j]){
+                t = false;
+                break;
+            }
+        }
+
+        if(t) cnt++;
+    }
+
+    ans *= cnt;
     cout << ans << endl;
 }
 
@@ -83,7 +66,7 @@ int main() {
     std::cin.tie(nullptr); std::cout.tie(nullptr);
     int t = 1; 
     cin >> t;
-    p = sieve();
+
     while(t-->0){
         solve();
     }

@@ -104,7 +104,7 @@
 
 ## 🟡 **Month 2: Subsequence & Knapsack DP (Weeks 5–8)**
 
-### **Week 5: Subsequence DP**
+### **Week 5: Subsequence DP** `DONE`
 
 **Concepts**
 

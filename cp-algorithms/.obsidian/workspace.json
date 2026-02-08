@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "6 month Roadmap/Data Structure Roadmap.md",
+                "file": "6 month Roadmap/Tree Roadmap.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Data Structure Roadmap"
+              "title": "Tree Roadmap"
             }
           }
         ]
@@ -171,12 +171,12 @@
   },
   "active": "aca7a8c3ea84d6e5",
   "lastOpenFiles": [
-    "6 month Roadmap/Tree Roadmap.md",
     "6 month Roadmap/String Roadmap.md",
     "6 month Roadmap/Math Roadmap.md",
     "6 month Roadmap/Graphs Roadmap.md",
     "6 month Roadmap/DP Roadmap.md",
     "6 month Roadmap/Data Structure Roadmap.md",
+    "6 month Roadmap/Tree Roadmap.md",
     "data structure/2501.02305v1.pdf",
     "6 month Roadmap/Invariant Problems.md",
     "DSA Note.md",
