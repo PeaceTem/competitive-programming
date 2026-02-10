@@ -107,7 +107,7 @@
 
 ## 🟡 **Month 2: Weighted Graphs (Weeks 5–8)**
 
-### **Week 5: Dijkstra**
+### **Week 5: Dijkstra** `DONE`
 
 **Concepts**
 

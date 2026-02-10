@@ -21,74 +21,37 @@ using namespace std;
 #define eps 1e-9
 
 void solve(){
-    int n, m, k; cin >> n >> m >> k;
-    vector<int> a(n), b(m); string s;
+    int n, m; cin >> n >> m;
+
+    vector<int> a(n), b(m);
 
     for(int i = 0; i < n; i++) cin >> a[i];
     for(int i = 0; i < m; i++) cin >> b[i];
-    cin >> s;
-    sort(a.begin(), a.end());
-    sort(b.begin(), b.end());
-    unordered_map<int, int> vpos;
 
-    vpos[0] = 0;
-    int min_pos = 0, max_pos = 0, pos = 0;
-    int cnt = 0;
-    for(int i = 0; i < k; i++){
-        if(s[i] == 'L') pos--;
-        else pos++;
+    multiset<int> alice(a.begin(), a.end()), bob(b.begin(), b.end());
+    int turn = 1;
+    while(alice.size() > 0 && bob.size() > 0){
+        int k = *prev(alice.end());
+        int j = *prev(bob.end());
+        alice.erase(alice.find(k));
+        bob.erase(bob.find(j));
+        if(turn){
+            j -= k;
+            if(j > 0) bob.insert(j);
 
-        if(min_pos <= pos && pos <= max_pos) continue;
-        min_pos = min(pos, min_pos);
-        max_pos = max(pos, max_pos);
+            alice.insert(k);
+        } else {
+            k -= j;
+            if(k > 0) alice.insert(k);
 
-        vpos[pos] = ++cnt;
-    }
-
-    unordered_map<int, int> mvp;
-
-    for(int i = 0; i < n; i++){
-        int idx = upper_bound(b.begin(), b.end(), a[i]) - b.begin();
-        int left = idx - 1;
-
-        if(left >= 0 && idx < m){
-            int kk = b[left] - a[i];
-            int j = b[idx] - a[i];
-
-            if(vpos.count(kk) && vpos.count(j)){
-                if(vpos[kk] < vpos[j]) mvp[kk]++;
-                else mvp[j]++;
-            } else if(vpos.count(kk)) mvp[kk]++;
-            else if(vpos.count(j)) mvp[j]++;
-        } else if(left >= 0){
-            int kk = b[left] - a[i];
-            if(vpos.count(kk)) mvp[kk]++;
-        } else if(idx < m){
-            int j = b[idx] - a[i];
-            if(vpos.count(j)) mvp[j]++;
-        }
-    }
-
-    min_pos = 0, max_pos = 0, pos = 0;
-    int ans = n;
-    for(int i = 0; i < k; i++){
-        if(s[i] == 'L') pos--;
-        else pos++;
-        // cout << "pos " << pos << endl;
-        if(min_pos <= pos && pos <= max_pos){
-            cout << ans << " ";
-            continue;
+            bob.insert(j);
         }
 
-        min_pos = min(pos, min_pos);
-        max_pos = max(pos, max_pos);
-
-        if(mvp.count(pos)) ans -= mvp[pos];
-
-        cout << ans << " ";
+        turn = (turn + 1) % 2;
     }
 
-    cout << endl;
+    if(alice.size() > 0) cout << "Alice" << endl;
+    else cout << "Bob" << endl;
 }
 
 int main() {
