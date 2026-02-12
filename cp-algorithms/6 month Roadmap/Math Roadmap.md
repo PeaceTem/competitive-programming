@@ -105,7 +105,7 @@
 
 ## 🟡 **Month 2: Intermediate Number Theory (Weeks 5–8)**
 
-### **Week 5: Advanced Modular Arithmetic**
+### **Week 5: Advanced Modular Arithmetic** `DONE`
 
 **Concepts**
 

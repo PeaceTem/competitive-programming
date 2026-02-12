@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-// #define ll long long
+#define ll long long
 #define ull unsigned long long
 #define pb push_back
 // #define mp make_pair
@@ -20,38 +20,29 @@ using namespace std;
 #define ld long double
 #define eps 1e-9
 
-void solve(){
-    int n, m; cin >> n >> m;
 
-    vector<int> a(n), b(m);
+void solve(){
+    int n; cin >> n;
+    vector<int> a(n);
 
     for(int i = 0; i < n; i++) cin >> a[i];
-    for(int i = 0; i < m; i++) cin >> b[i];
 
-    multiset<int> alice(a.begin(), a.end()), bob(b.begin(), b.end());
-    int turn = 1;
-    while(alice.size() > 0 && bob.size() > 0){
-        int k = *prev(alice.end());
-        int j = *prev(bob.end());
-        alice.erase(alice.find(k));
-        bob.erase(bob.find(j));
-        if(turn){
-            j -= k;
-            if(j > 0) bob.insert(j);
+    int ones = 0;
 
-            alice.insert(k);
-        } else {
-            k -= j;
-            if(k > 0) alice.insert(k);
-
-            bob.insert(j);
-        }
-
-        turn = (turn + 1) % 2;
+    for(int i = 0; i < n; i++){
+        if(a[i] == 1) ones++;
     }
+    int left = n - ones;
 
-    if(alice.size() > 0) cout << "Alice" << endl;
-    else cout << "Bob" << endl;
+    if(left == 0){
+        if(ones & 1){
+            cout << "Alice\n";
+        } else cout << "Bob\n";
+    } else {
+        if((2 * left + ones) & 1){
+            cout << "Bob\n";
+        }
+    }
 }
 
 int main() {
