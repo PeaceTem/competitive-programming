@@ -94,7 +94,7 @@
 
 ## 🟡 **Month 2: Hashing & Substrings (Weeks 5–8)**
 
-### **Week 5: Rolling Hash (Rabin–Karp)**
+### **Week 5: Rolling Hash (Rabin–Karp)** `DONE`
 
 **Concepts**
 

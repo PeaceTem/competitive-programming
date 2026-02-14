@@ -22,27 +22,37 @@ using namespace std;
 
 
 void solve(){
-    int n; cin >> n;
-    vector<int> a(n);
+    long long n, ax, ay, bx, by; cin >> n >> ax >> ay >> bx >> by;
 
-    for(int i = 0; i < n; i++) cin >> a[i];
+    vector<long long> x(n), y(n), dp[2];
+    
+    dp[0] = dp[1] = vector<long long>(n + 6, 0);
 
-    int ones = 0;
+    for(long long i = 0; i < n; i++) cin >> x[i];
+    for(long long i = 0; i < n; i++) cin >> y[i];
+    map<long long, long long> mx, mn;
 
-    for(int i = 0; i < n; i++){
-        if(a[i] == 1) ones++;
+    mx[ax] = mn[ax] = ay;
+    mn[bx] = mx[bx] = by;
+
+    for(long long i = 0; i < n; i++){
+        mx[x[i]] = max(mx[x[i]], y[i]);
+        mn[x[i]] = min(mn.count(x[i]) ? mn[x[i]] : LLONG_MAX, y[i]);
     }
-    int left = n - ones;
+    long long cnt = 0, last = ax, need;
 
-    if(left == 0){
-        if(ones & 1){
-            cout << "Alice\n";
-        } else cout << "Bob\n";
-    } else {
-        if((2 * left + ones) & 1){
-            cout << "Bob\n";
-        }
+    dp[0][0] = dp[1][0] = 0;
+
+    for(auto px : mx){
+        cnt++;
+        need = px.F - last + px.S - mn[px.F];
+
+        dp[0][cnt] = min(dp[0][cnt - 1] + abs(mx[last] - mn[px.F]), dp[1][cnt - 1] + abs(mn[last] - mn[px.F])) + need;
+        dp[1][cnt] = min(dp[0][cnt - 1] + abs(mx[last] - px.S), dp[1][cnt - 1] + abs(mn[last] - px.S)) + need;
+        last = px.F;
     }
+
+    cout << dp[0][cnt] << endl;
 }
 
 int main() {
