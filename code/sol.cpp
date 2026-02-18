@@ -2,72 +2,88 @@
 using namespace std;
 #define ll long long
 #define ull unsigned long long
-#define pb push_back
-// #define mp make_pair
 #define F first
 #define S second
 #define endl '\n'
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
 #define sz(x) (int)(x).size()
-#define lb lower_bound
 #define vi vector<int>
 #define pii pair<int, int>
 #define vii vector<pii>
-// #define MOD 1000000007
-#define INF 1000000000000000000
-#define MAXN 1000005
 #define ld long double
 #define eps 1e-9
 #define int long long
 
+const int MOD = 998244353;
+const int N = 52;
+int fact[N];
+
+void compute(){
+    fact[0] = fact[1] = 1;
+    for(int i = 2; i < N; i++) fact[i] = (fact[i - 1] * i) % MOD;
+}
+
+int mod_exp(int a, int b){
+    int res = 1;
+    while(b){
+        if(b&1) res = (res * a) % MOD;
+        a = (a * a) % MOD;
+        b >>= 1;
+    }
+
+    return res;
+}
 
 void solve(){
     int n; cin >> n;
-    vector<int> a(n), b(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    for(int i = 0; i < n; i++) cin >> b[i];
+    vector<int> a(n + 1);
+    for(int i = 0; i <= n; i++) cin >> a[i];
 
-    vector<vector<int>> k(4, vector<int>(n));
-    k[0][0] = k[1][0] = a[0];
-    for(int i = 1; i < n; i++){
-        k[0][i] = min(a[i], k[0][i - 1]);
-        k[1][i] = max(a[i], k[1][i - 1]);
-    }
-    k[2].back() = k[3].back() = b.back();
-    for(int i = n - 2; i >= 0; --i){
-        k[2][i] = min(b[i], k[2][i + 1]);
-        k[3][i] = max(b[i], k[3][i + 1]);
-    }
+    int acc = accumulate(all(a), 0LL);
+    int k = acc / n;
+    int z = 0;
+    for(int i = 1; i <= n; i++){
+        a[i] -= k;
 
-    int ans = 0;
-    vector<pair<int, int>> vp;
-    for(int i = 0; i < n; i++){
-        int ab = min(k[0][i], k[2][i]);
-        int bc = max(k[1][i], k[3][i]);
-        // do prev and next of each.
+        if(a[i] < 0){
+            a[0] += a[i];
+            a[i] = 0;
+        }
 
-        // ans += ab * (2 * n - bc + 1);
-        vp.push_back({bc, ab});
+        if(a[i] > 1 || a[0] < 0){
+            cout << 0 << endl; return;
+        }
+
+        if(a[i] == 0) z++;
     }
 
-    sort(vp.begin(), vp.end());
-    // int l = 1;
-    int i = 0;
-    for(int l = 1; l <= 2 * n; l++){
-        while(i < n && vp[i].second < l) i++;
-
-        if(i >= n) break;
-        ans += 2 * n - vp[i].first + 1;
+    if(a[0] < 0){
+        cout << 0 << endl; return;
     }
-    
+
+    int x = z - a[0];
+
+    if(x < 0){
+        cout << 0 << endl; return;
+    }
+
+    int p = min(x, z - x);
+    int ans = 1;
+    for(int i = 1; i <= p; i++){
+        ans = ((ans * (z - i + 1)) % MOD) * mod_exp(i, MOD - 2) % MOD;
+    }
+    ans = ((ans * fact[x]) % MOD) * fact[n - x] % MOD;
+
     cout << ans << endl;
+    // I'm tired, but it doesn't matter.
 }
 
 int32_t main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr); std::cout.tie(nullptr);
     int t = 1; 
+    compute();
     cin >> t;
     while(t-->0){
         solve();
