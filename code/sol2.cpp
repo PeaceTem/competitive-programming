@@ -2,167 +2,78 @@
 using namespace std;
 #define ll long long
 #define ull unsigned long long
-#define pb push_back
-#define mp make_pair
 #define F first
 #define S second
 #define endl '\n'
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
 #define sz(x) (int)(x).size()
-#define lb lower_bound
 #define vi vector<int>
 #define pii pair<int, int>
 #define vii vector<pii>
-// #define MOD 1000000007
-#define INF 1000000000000000000
-#define MAXN 1000005
 #define ld long double
 #define eps 1e-9
-
-ll modpowll(ll a, ll b, ll mod) {
-    ll res = 1;
-    a = a % mod;
-    while(b){
-        if(b & 1) res = (res * a) % mod;
-        a = (a * a) % mod;
-        b >>=1;
-    }
-
-    return res;
-}
-
-int modpow(int a, int b, int mod) {
-    ll res = 1;
-    a = a % mod;
-    while(b){
-        if(b & 1) res = (res * a) % mod;
-        a = (a * a) % mod;
-        b >>=1;
-    }
-
-    return res;
-}
-
-int gcd(int a, int b){
-    return b == 0 ? a : gcd(b, a % b);
-}
-
-int lcm(int a, int b){
-    return (a / gcd(a, b)) * b;
-}
-
-ll lcmll(ll a, ll b){
-    return (a / gcd(a, b)) * b;
-}
-
-ll gcdll(ll a, ll b){
-    return b == 0 ? a : gcdll(b, a % b);
-}
-
-vector<int> sieve(int n){
-    vector<bool> is_prime(n, true);
-    is_prime[1] = false;
-    is_prime[0] = false;
-    for(int i=2; i*i < n; i++){
-        if(is_prime[i]){
-            for(int j=i*i; j<n; j+=i){
-                is_prime[j] = false;
-            }
-        }
-    }
-
-    vector<int> primes;
-    for(int i=2; i<n; i++){
-        if(is_prime[i]) primes.pb(i);
-    }
-
-    return primes;
-}
-
-
-int binpow(int a, int b) {
-    int res = 1;
-    while(b){
-        if(b & 1) res = res * a;
-        a *= a;
-        b >>=1;
-    }
-
-    return res;
-}
-
-
-ll binpowll(ll a, ll b) {
-    ll res = 1;
-    while(b){
-        if(b & 1) res = res * a;
-        a *= a;
-        b >>=1;
-    }
-
-    return res;
-}
-
-ll binmodll(ll a, ll b) {
-    ll res = 1;
-    while(b){
-        if(b & 1) res = res * a;
-        a *= a;
-        b >>=1;
-    }
-
-    return res;
-}
-
-bool isPrime(ll n) {
-    if (n < 2) return false;
-    for (ll i = 2; i*i <= n; i++)
-        if (n % i == 0) return false;
-    return true;
-}
-
-ll sumDivisors(ll n) {
-    ll sum = 0;
-    for (ll i = 1; i*i <= n; i++) {
-        if (n % i == 0) {
-            sum += i;
-            if (i != n/i) sum += n/i;
-        }
-    }
-    return sum;
-}
+#define int long long
 
 
 void solve(){
-    int x, y; cin >> x >> y;
-
-    int p = x, q = y;
-    if(p < q) swap(p, q);
-    int end_iter = -1;
-    for(int i = 0; i <= 30; i++){
-
-        if((p & (1 << i)) && (q & (1 << i))){
-            int iter = i - 1;
-            while(iter >= 0 && iter > end_iter){
-                if((p & (1 << iter)) == 0 && (q & (1 << iter)) == 0){
-                    p |= (1 << iter);
-                }
-                iter--;
-            }
-            p ^= (1 << i);
-            end_iter = i;
-        }
+    int n, h, k; cin >> n >> h >> k;
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
+    int acc = accumulate(all(a), 0LL);
+    int ans = 0;
+    ans += (h / acc) * n + (h / acc)  * k;
+    // int pp = (h / 
+    h %= acc;
+    if(h == 0LL){
+        cout << ans - k << endl; return;
     }
-    if(x < y) swap(p, q);
-    cout << p << " " << q << endl;
+
+    int hh = h;
+    int mn = LLONG_MAX;
+    // int mn_idx = 1;
+    int mx = LLONG_MIN;
+    for(int i = 0; i < n; i++){
+        if(hh <= a[i]){
+            // find the max element from a[i] -> a[n - 1]
+            mx = *max_element(a.begin() + i, a.end());
+            break;
+        } else hh -= a[i];
+    }
+
+    if(mx >= h){
+        cout << ans + 1 << endl;
+        return;
+    }
+
+    vector<int> pref(n + 1);
+    pref[0] = 0;
+
+    for(int i = 1; i <= n; i++){
+        pref[i] = pref[i - 1] + a[i - 1];
+    }
+
+    int need = h - mx;
+    int xx = LLONG_MAX;
+    for(int i = 1; i <= n; i++){
+        int k = need - pref[i - 1];
+        if(k <= 0){
+            xx = min(xx, i);
+            break;
+        }
+        // lower_bound
+        int ind = lower_bound(all(pref), pref[i] + k) - pref.begin();
+
+        xx = min(xx, ind);
+    }
+
+    cout << ans + xx << endl;
+
 }
 
-int main() {
-    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+int32_t main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr); std::cout.tie(nullptr);
-  
     int t = 1; 
     cin >> t;
     while(t-->0){
@@ -170,3 +81,4 @@ int main() {
     }
     return 0;
 }
+

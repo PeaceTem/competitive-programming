@@ -1,3 +1,11 @@
+ffmpeg -f gdigrab -framerate 60 -i desktop ^
+-f dshow -i audio="Microphone (Realtek Audio)" ^
+-f dshow -i audio="Stereo Mix (Realtek Audio)" ^
+-filter_complex amix=inputs=2 ^
+-c:v libx264 -preset veryfast -crf 23 -pix_fmt yuv420p ^
+-c:a aac -b:a 192k final_output.mp4
+
+
 # 🚀 **6-Month STL Roadmap for Competitive Programming**
 
 ## ✅ **Month 1 — Foundations + Containers**

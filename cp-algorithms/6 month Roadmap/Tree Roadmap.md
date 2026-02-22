@@ -96,7 +96,7 @@
 
 ## 🟡 **Month 2: Binary Search Trees & Variants (Weeks 5–8)**
 
-### **Week 5: Binary Search Trees (BST)**
+### **Week 5: Binary Search Trees (BST)** `DONE`
 
 **Concepts**
 

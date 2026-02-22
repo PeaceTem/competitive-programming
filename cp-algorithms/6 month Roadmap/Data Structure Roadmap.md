@@ -4,7 +4,7 @@
 
 ## 🟢 **Month 1: Core Linear Data Structures (Weeks 1–4)**
 
-### **Week 1: Arrays & Strings** `DONE` `USED`
+### **Week 1: Arrays & Strings** `DONE`
 
 **Concepts**
 
@@ -114,7 +114,7 @@
 
 ---
 
-### **Week 6: Heaps / Priority Queues**
+### **Week 6: Heaps / Priority Queues** `DONE`
 
 **Concepts**
 

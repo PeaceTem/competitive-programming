@@ -126,7 +126,7 @@
 
 ---
 
-### **Week 6: Edit Distance Family**
+### **Week 6: Edit Distance Family** `DONE`
 
 **Concepts**
 

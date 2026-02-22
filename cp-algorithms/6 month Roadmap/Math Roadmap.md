@@ -123,7 +123,7 @@
 
 ---
 
-### **Week 6: Inclusion–Exclusion Principle**
+### **Week 6: Inclusion–Exclusion Principle** `DONE`
 
 **Concepts**
 
