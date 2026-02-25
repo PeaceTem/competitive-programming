@@ -114,7 +114,7 @@
 
 ---
 
-### **Week 6: Palindrome Techniques**
+### **Week 6: Palindrome Techniques** `DONE`
 
 **Concepts**
 
