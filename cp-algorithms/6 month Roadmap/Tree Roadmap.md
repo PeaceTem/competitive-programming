@@ -118,7 +118,7 @@
 
 ---
 
-### **Week 6: BST Advanced**
+### **Week 6: BST Advanced** `DONE`
 
 **Concepts**
 

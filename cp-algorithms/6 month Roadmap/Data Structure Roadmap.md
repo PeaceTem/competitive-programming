@@ -4,7 +4,7 @@
 
 ## 🟢 **Month 1: Core Linear Data Structures (Weeks 1–4)**
 
-### **Week 1: Arrays & Strings** `DONE`
+### **Week 1: Arrays & Strings** `DONE` `-1 USED`
 
 **Concepts**
 
@@ -136,7 +136,7 @@
 
 ---
 
-### **Week 7: Ordered Sets & Maps**
+### **Week 7: Ordered Sets & Maps** `DONE`
 
 **Concepts**
 

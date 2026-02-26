@@ -17,54 +17,96 @@ using namespace std;
 
 
 void solve(){
-    int n; cin >> n;
+    int n, k; cin >> n >> k;
     vector<int> a(n);
     for(int i = 0; i < n; i++) cin >> a[i];
-
-    stack<pair<int, int>> st, st1;
-    for(int i = 0; i < n; i++) st.push({a[i], i});
-
-    while(!st.empty()){
-        if(st1.empty() || st1.top().F != st.top().F + 1) st1.push(st.top()), st.pop();
-        else st1.pop();
-    }
-    // cout << st1.size() << endl;
-
-    vector<int> base(n, 0), pref(n, 0);
-    int ans = 0;
+    int cnt = 0;
+    int less_cnt = 0;
+    int g_cnt = 0;
+    int signal = 0;
+    int last = -1;
     for(int i = 0; i < n; i++){
-        if(!st1.empty() && st1.top().S == i){
-            base[i] = 1, st1.pop();
-        } else{
-            base[i] = 0;
+        if(a[i] <= k){
+            less_cnt++;
+            // if(signal) signal = 0;
+        } else {
+            // if(signal == 0) g_cnt++;
+            // else signal = 0;
+            g_cnt++;
+        }
+
+        if(less_cnt != 0 && less_cnt + 1 == g_cnt && signal){
+            cnt++;
+            // signal = 0;
+            less_cnt = 0;
+            g_cnt = 0;
+            last = i;
+        } else if(less_cnt != 0 && less_cnt == g_cnt){
+            cnt++;
+            less_cnt = 0;
+            g_cnt = 0;
+            last = i;
+        } else if(less_cnt > g_cnt){
+            cnt++;
+            less_cnt = 0;
+            g_cnt = 0;
+            if(i + 1 < n && a[i + 1] > k) signal++;
+            last = i;
         }
     }
-    pref[0] = base[0];
-    for(int i = 1; i < n; i++){
-        pref[i] = pref[i - 1] + base[i];
+
+    less_cnt = 0;
+    g_cnt = 0;
+    signal = 0;
+
+    int new_cnt = 0;
+    int new_last = -1;
+    for(int i = n - 1; i >= 0; i--){
+        if(a[i] <= k){
+            less_cnt++;
+            // if(signal) signal = 0;
+        } else {
+            // if(signal == 0) g_cnt++;
+            // else signal = 0;
+            g_cnt++;
+        }
+
+        if(less_cnt != 0 && less_cnt + 1 == g_cnt && signal){
+            new_cnt++;
+            signal = 0;
+            less_cnt = 0;
+            g_cnt = 0;
+            new_last = i;
+            // cout << "signal " << a[i] << endl;
+        } else if(less_cnt != 0 && less_cnt == g_cnt){
+            new_cnt++;
+            less_cnt = 0;
+            g_cnt = 0;
+            // signal = 0;
+            new_last = i;
+            // cout << "Equal " << a[i] << endl;
+        } else if(less_cnt > g_cnt){
+            new_cnt++;
+            less_cnt = 0;
+            g_cnt = 0;
+            if(i - 1 >= 0 && a[i - 1] > k) signal++;
+            new_last = i;
+            // cout << "Greater " << a[i] << endl;
+        }
+    }
+    // cout << "What is going on?\n";
+    // cout << "CNT: " << cnt << " NewCNT: " << new_cnt << " Last: " << last << " NewLast: " << new_last << endl;
+
+    if(cnt >= 2 || new_cnt >= 2){
+        cout << "YES\n"; return;
     }
 
-    // pref1[0] = pref[0];
-    // for(int i = 1; i < n; i++){
-    //     pref1[i] = pref1[i - 1] + pref[i];
-    // }
+    if(cnt == 1 && new_cnt == 1 && last != -1 && new_last != -1 && last + 1 < new_last){
+
+        cout << "YES\n"; return;
+    }
     
-    int acc = accumulate(all(pref), 0LL);
-    ans = acc;
-    for(int i = 1; i < n; i++){
-        if(base[i] == 0){
-            acc--;
-        } else acc -= n - i + 1;
-
-        ans += acc;
-    }
-    unordered_map<int, int> mp;
-    for(int i = 0; i < n; i++){
-        mp[a[i]] = i;
-        if(base[i] != 0) continue;
-        ans += (i - mp[a[i] - 1] - 1) * (n - i);
-    }
-    cout << ans << endl;
+    cout << "NO\n";
 }
 
 int32_t main() {
