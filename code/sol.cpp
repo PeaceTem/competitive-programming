@@ -17,24 +17,65 @@ using namespace std;
 
 
 void solve(){
-    int k, x; cin >> k >> x;
+    int n; cin >> n;
 
-    vector<int> ans;
-    int y = (1LL << (k + 1)) - x;
-    while(x != y){
-        if(x < y){
-            ans.push_back(1);
-            y -= x;
-            x <<= 1;
-        } else {
-            ans.push_back(2);
-            x -= y;
-            y <<= 1;
+    vector<vector<int>> a(n);
+    vector<int> ht(n);
+
+    for(int i = 0; i < n; i++){
+        int m; cin >> m;
+        ht[i] = m - 1;
+        for(int j = 0; j < m; j++){
+            int x; cin >> x;
+            a[i].push_back(x);
         }
     }
-    int p = ans.size();
-    cout << p << endl;
-    for(int i = p - 1; i >= 0; i--) cout << ans[i] << " ";
+    
+    vector<int> ans;
+    unordered_set<int> mk;
+    while(true){
+        int val = LLONG_MAX, inc = 0, pt = -1;
+
+        for(int j = 0; j < n; j++){
+            while(ht[j] != -1){
+                if(mk.count(a[j][ht[j]])) ht[j]--;
+                else {
+                    if(val == a[j][ht[j]]){
+                        inc++;
+                        // cout << "Picked1: " << val << endl;
+                    } else if(val > a[j][ht[j]]) {
+                        inc = 1;
+                        val = a[j][ht[j]];
+                        pt = j;
+                        // cout << "Picked0: " << val << endl;
+                    }
+                    // val = a[j][ht[j]];
+                    // the code is pick the least one without duplicate
+                    // that's wrong.
+                    break;
+                }
+            }
+        }
+
+        if(inc == 0) break;
+        if(inc > 1){
+            // create a function that goes deep into this one;
+            // if this set is not empty then use it and check for all the indices in it;
+            // else use the normal condition;
+            mk.insert(val);
+            ans.push_back(val);
+        } else {
+            int k = (int) a[pt].size();
+            for(k = k - 1; k >= 0; k--){
+                if(mk.count(a[pt][k])) continue;
+                mk.insert(a[pt][k]);
+                ans.push_back(a[pt][k]);
+            }
+            ht[pt] = -1;
+        }
+    }
+
+    for(int& u : ans) cout << u << " ";
     cout << endl;
 }
 
