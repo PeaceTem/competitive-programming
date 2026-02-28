@@ -15,68 +15,73 @@ using namespace std;
 #define eps 1e-9
 #define int long long
 
+vector<int> primes;
+unordered_set<int> st_primes;
+void compute(){
+    vector<bool> is_prime(1e6+1, true);
+    is_prime[0] = is_prime[1] = false;
+    for(int i = 2; i * i <= 1e6; i++){
+        if(is_prime[i]){
+            for(int j = i * i; j <= 1e6; j += i) is_prime[j] = false;
+        }
+    }
+
+    for(int i = 2; i <= 1e6; i++){
+        if(is_prime[i]) primes.push_back(i);
+    }
+    st_primes = unordered_set<int>(all(primes));
+}
+
+vector<int> cmp(int k){
+    int n = primes.size();
+    int i = 0;
+    unordered_set<int> st;
+    while(i < n && primes[i] <= k){
+        if(st_primes.count(k)){
+            st.insert(k); break;
+        }
+        if(k % primes[i] == 0){
+            k /= primes[i];
+            st.insert(primes[i]);
+        } else i++;
+    }
+    return vector<int>(all(st));
+}
 
 void solve(){
     int n; cin >> n;
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
+    bool t = true;
+    for(int i = 1; i < n; i++){
+        if(a[i] < a[i - 1]){
+            t = false; break;
+        }
+    }
 
-    vector<vector<int>> a(n);
-    vector<int> ht(n);
+    if(t){
+        cout << "Bob\n"; return;
+    }
 
+    int prev_max = 0;
     for(int i = 0; i < n; i++){
-        int m; cin >> m;
-        ht[i] = m - 1;
-        for(int j = 0; j < m; j++){
-            int x; cin >> x;
-            a[i].push_back(x);
-        }
-    }
-    
-    vector<int> ans;
-    unordered_set<int> mk;
-    while(true){
-        int val = LLONG_MAX, inc = 0, pt = -1;
-
-        for(int j = 0; j < n; j++){
-            while(ht[j] != -1){
-                if(mk.count(a[j][ht[j]])) ht[j]--;
-                else {
-                    if(val == a[j][ht[j]]){
-                        inc++;
-                        // cout << "Picked1: " << val << endl;
-                    } else if(val > a[j][ht[j]]) {
-                        inc = 1;
-                        val = a[j][ht[j]];
-                        pt = j;
-                        // cout << "Picked0: " << val << endl;
-                    }
-                    // val = a[j][ht[j]];
-                    // the code is pick the least one without duplicate
-                    // that's wrong.
-                    break;
-                }
-            }
+        if(a[i] == 1){
+            if(a[i] >= prev_max) continue;
+            cout << "Alice\n"; return;
         }
 
-        if(inc == 0) break;
-        if(inc > 1){
-            // create a function that goes deep into this one;
-            // if this set is not empty then use it and check for all the indices in it;
-            // else use the normal condition;
-            mk.insert(val);
-            ans.push_back(val);
-        } else {
-            int k = (int) a[pt].size();
-            for(k = k - 1; k >= 0; k--){
-                if(mk.count(a[pt][k])) continue;
-                mk.insert(a[pt][k]);
-                ans.push_back(a[pt][k]);
-            }
-            ht[pt] = -1;
+        vector<int> p = cmp(a[i]);
+        if(p.size() == 0){
+            cout << "Zero\n"; return;
         }
+        if(p.size() > 1 || p[0] < prev_max){
+            cout << "Alice\n"; return;
+        }
+
+        prev_max = p[0];
     }
 
-    for(int& u : ans) cout << u << " ";
-    cout << endl;
+    cout << "Bob\n";
 }
 
 int32_t main() {
@@ -84,6 +89,7 @@ int32_t main() {
     std::cin.tie(nullptr); std::cout.tie(nullptr);
     int t = 1; 
     cin >> t;
+    compute();
     while(t-->0){
         solve();
     }
