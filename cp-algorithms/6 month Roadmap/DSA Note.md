@@ -1,3 +1,17 @@
+
+## 🔥 Pattern 2: Subset Enumeration
+```
+for (int s = mask; s; s = (s - 1) & mask)
+```
+This uses subtraction + AND trick.
+
+```
+mask & (1 << i)        // check
+mask | (1 << i)        // set
+mask ^ (1 << i)        // toggle
+mask & ~(1 << i)       // clear
+```
+
 ## Multiset and Prefix Sum (CF)
 - **`multiset::count(x)` can degrade** when there are many duplicates, since it may scan all occurrences.  
     Prefer `find(x)` + `erase(iterator)` to remove **only one occurrence** in `O(log n)`.
