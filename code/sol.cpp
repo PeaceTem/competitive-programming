@@ -15,43 +15,40 @@ using namespace std;
 #define eps 1e-9
 #define int long long
 
+bool check(int mid, vector<int> c, vector<bool> d){
+    for(int i = 61; i >= 1; i--){
+        if(d[i]){
+            c[i - 1] += 2 * max(0LL, c[i] - mid);
+        } else c[i - 1] += 2 * c[i];
+    }
+
+    if(c[0] > 0 && !d[0]) return false;
+    if(c[0] <= mid) return true;
+    return false;
+}
+
 void solve(){
-    int n, m; cin >> n >> m;
-    vector<int> a(n), b(m);
+    int s, m; cin >> s >> m;
 
-    for(int i = 0; i < n; i++) cin >> a[i];
-    for(int i = 0; i < m; i++) cin >> b[i];
+    vector<int> c(62, 0);
+    vector<bool> d(62, false);
 
-    vector<int> p(n + m + 1, 0);
+    for(int i = 61; i >= 0; i--){
+        if((1LL << i) & s) c[i] = 1;
 
-    unordered_map<int, int> mp;
-    for(int i = 0; i < n; i++){
-        mp[a[i]]++;
+        if((1LL << i) & m) d[i] = true;
     }
 
-    for(auto& [k, v] : mp){
-        for(int i = k; i <= n + m; i += k){
-            p[i] += v;
-        }
+    int l = 0, r = s + 1;
+
+    while(l + 1 < r){
+        int mid = l + (r - l) / 2;
+
+        if(check(mid, c, d)) r = mid;
+        else l = mid;
     }
-
-    int alice = 0, bob = 0, both = 0;
-
-    for(int i = 0; i < m; i++){
-        if(p[b[i]] == n) alice++;
-        else if(p[b[i]] == 0){
-            // cout << "Bob's own: " << b[i] << endl;
-            bob++;
-        }
-        else both++;
-    }
-    // cout << alice << " " << bob << " " << both << endl;
-
-    alice += (both + 1) / 2;
-    bob += both / 2;
-    // cout << alice << " " << bob << " " << both << endl;
-    if(alice > bob) cout << "Alice\n";
-    else cout << "Bob\n";
+    if(r > s) cout << -1 << endl;
+    else cout << r << endl;
 }
 
 
