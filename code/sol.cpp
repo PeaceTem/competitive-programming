@@ -16,46 +16,29 @@ using namespace std;
 #define int long long
 
 void solve(){
-    int n, k; cin >> n >> k;
+    int n, l, r, k; cin >> n >> l >> r >> k;
 
-    if(k < n || k >= 2 * n){
-        cout << "NO\n"; return;
-    }
+    if(n % 2 == 0) {
+        if(n == 2){
+            cout << -1 << endl; return;
+        }
 
-    cout << "YES\n";
+        int pos = log2(l);
+        // learn how to use __builtin_clzll(l);
+        
+        int kk = 1LL << (pos + 1);
 
-    if(n == k){
-        for(int i = 1; i <= n; i++) cout << i << " " << i << " ";
-        cout << endl;
+        if(r < kk){
+            cout << -1 << endl; return;
+        }
+
+        if(k <= n - 2) cout << l << endl;
+        else cout << kk << endl;
+
         return;
     }
 
-    vector<int> ans = {1, 2};
-    k = k - n - 1;
-
-    queue<int> st;
-    st.push(1);
-    st.push(2);
-    int nt = 3;
-    while(k){
-        ans.push_back(nt);
-        ans.push_back(st.front());
-        st.pop();
-        st.push(nt);
-        nt++;
-        k--;
-    }
-
-    while(!st.empty()) ans.push_back(st.front()), st.pop();
-
-    while(nt <= n){
-        ans.push_back(nt);
-        ans.push_back(nt);
-        nt++;
-    }
-
-    for(int& x : ans) cout << x << " ";
-    cout << endl;
+    cout << l << endl;
 }
 
 
