@@ -15,40 +15,47 @@ using namespace std;
 #define eps 1e-9
 #define int long long
 
-bool check(int mid, vector<int> c, vector<bool> d){
-    for(int i = 61; i >= 1; i--){
-        if(d[i]){
-            c[i - 1] += 2 * max(0LL, c[i] - mid);
-        } else c[i - 1] += 2 * c[i];
-    }
-
-    if(c[0] > 0 && !d[0]) return false;
-    if(c[0] <= mid) return true;
-    return false;
-}
-
 void solve(){
-    int s, m; cin >> s >> m;
+    int n, k; cin >> n >> k;
 
-    vector<int> c(62, 0);
-    vector<bool> d(62, false);
-
-    for(int i = 61; i >= 0; i--){
-        if((1LL << i) & s) c[i] = 1;
-
-        if((1LL << i) & m) d[i] = true;
+    if(k < n || k >= 2 * n){
+        cout << "NO\n"; return;
     }
 
-    int l = 0, r = s + 1;
+    cout << "YES\n";
 
-    while(l + 1 < r){
-        int mid = l + (r - l) / 2;
-
-        if(check(mid, c, d)) r = mid;
-        else l = mid;
+    if(n == k){
+        for(int i = 1; i <= n; i++) cout << i << " " << i << " ";
+        cout << endl;
+        return;
     }
-    if(r > s) cout << -1 << endl;
-    else cout << r << endl;
+
+    vector<int> ans = {1, 2};
+    k = k - n - 1;
+
+    queue<int> st;
+    st.push(1);
+    st.push(2);
+    int nt = 3;
+    while(k){
+        ans.push_back(nt);
+        ans.push_back(st.front());
+        st.pop();
+        st.push(nt);
+        nt++;
+        k--;
+    }
+
+    while(!st.empty()) ans.push_back(st.front()), st.pop();
+
+    while(nt <= n){
+        ans.push_back(nt);
+        ans.push_back(nt);
+        nt++;
+    }
+
+    for(int& x : ans) cout << x << " ";
+    cout << endl;
 }
 
 
