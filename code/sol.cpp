@@ -15,30 +15,79 @@ using namespace std;
 #define eps 1e-9
 #define int long long
 
-void solve(){
-    int n, l, r, k; cin >> n >> l >> r >> k;
+vii sol;
 
-    if(n % 2 == 0) {
-        if(n == 2){
-            cout << -1 << endl; return;
-        }
+void zero_func(vector<int>& a, vector<int>& ind){
+    int n = a.size();
+    int right = n - 1, left = n - 2;
+    vector<int> h = a;
 
-        int pos = log2(l);
-        // learn how to use __builtin_clzll(l);
-        
-        int kk = 1LL << (pos + 1);
+    while(right >= 0 && left >= 0){
+        if(a[ind[left]] >= h[ind[right]]) break;
 
-        if(r < kk){
-            cout << -1 << endl; return;
-        }
-
-        if(k <= n - 2) cout << l << endl;
-        else cout << kk << endl;
-
-        return;
+        h[ind[right]] -= a[ind[left]];
+        sol.push_back({ind[left] + 1, ind[right] + 1});
+        left--;
     }
 
-    cout << l << endl;
+    if(left == -1 ){
+        cout << left << endl; return;
+    }
+
+    right = left;
+
+    left = 0;
+
+    for(; left < right; left++) sol.push_back({ind[left] + 1, ind[left + 1] + 1});
+
+    sol.push_back({ind[right] + 1, ind[n - 1] + 1});
+
+    cout << sol.size() << endl;
+    for(auto& [u, v] : sol){
+        cout << u << " " << v << endl;
+    }
+}
+
+void sol_func(vector<int>& a, vector<int>& ind, int m){
+    int n = a.size();
+    int left = 0, right = n - 1;
+
+    vector<int> h = a;
+
+    for(int i = 0; i < m - 1; i++){
+        sol.push_back({ind[right - i] + 1, ind[i] + 1});
+    }
+
+    for(int i = m - 1; i <= right - m; i++){
+        if(i == right - m) sol.push_back({ind[i + 1] + 1, ind[i] + 1});
+        else sol.push_back({ind[i] + 1, ind[i + 1] + 1});
+    }
+
+    cout << sol.size() << endl;
+    for(auto& [u, v] : sol){
+        cout << u << " " << v << endl;
+    }
+}
+
+void solve(){
+    int n, m; cin >> n >> m;
+
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
+
+    if(m > (n / 2)) {
+        cout << -1 << endl; return;
+    }
+
+    vector<int> ind(n); iota(all(ind), 0LL);
+
+    sort(all(ind), [&](int& x, int& y){
+        return a[x] < a[y];
+    });
+
+    sol.clear();
+    if(m == 0) zero_func(a, ind);
+    else sol_func(a, ind, m);
 }
 
 
