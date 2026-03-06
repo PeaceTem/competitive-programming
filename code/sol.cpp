@@ -15,79 +15,92 @@ using namespace std;
 #define eps 1e-9
 #define int long long
 
-vii sol;
 
-void zero_func(vector<int>& a, vector<int>& ind){
-    int n = a.size();
-    int right = n - 1, left = n - 2;
-    vector<int> h = a;
+vector<vector<int>> adj;
+vector<int> cnt;
+vector<int> mx;
+vector<int> ans;
+vector<int> ans_s;
+vector<int> cnt_s;
 
-    while(right >= 0 && left >= 0){
-        if(a[ind[left]] >= h[ind[right]]) break;
 
-        h[ind[right]] -= a[ind[left]];
-        sol.push_back({ind[left] + 1, ind[right] + 1});
-        left--;
+void dfs(vector<int>& a, int p, int parent){
+    int sm = 0, cnt_sm = 0;
+    int mx1 = 0, mx2 = 0;
+    
+    for(int u : adj[p]){
+        if(u == parent) continue;
+
+        dfs(a, u, p);
+
+        if(mx[u] >= mx1){
+            mx2 = mx1;
+            mx1 = mx[u];
+        } else if(mx[u] >= mx2){
+            mx2 = mx[u];
+        }
+
+        sm += cnt[u];
+        // ans_sm += ans_s[u];
+        cnt_sm += cnt_s[u];
+        // cout << sm << " ";
     }
 
-    if(left == -1 ){
-        cout << left << endl; return;
+
+    cnt[p] = a[p] + 2 * sm; // aug_sm
+    cnt_s[p] = a[p] + cnt_sm; // sum
+    mx[p] = mx1 + 1;
+    ans[p] = 0;
+    for(int u : adj[p]){
+        if(u == parent) continue;
+        if(mx[u] == mx1){
+            if(mx2 == 0){
+                ans[p] = max(ans[p], ans[u] + cnt_s[u]);
+            } else {
+                ans[p] = max(ans[p], mx2 * cnt_s[u] + sm);
+            }
+        } else {
+            // ans[p] = max(ans[p], (mx1 - 1) * cnt[u] + sm + cnt_s[u]);
+            ans[p] = max(ans[p], mx1 * cnt_s[u] + sm);
+
+        }
     }
 
-    right = left;
+    
 
-    left = 0;
-
-    for(; left < right; left++) sol.push_back({ind[left] + 1, ind[left + 1] + 1});
-
-    sol.push_back({ind[right] + 1, ind[n - 1] + 1});
-
-    cout << sol.size() << endl;
-    for(auto& [u, v] : sol){
-        cout << u << " " << v << endl;
-    }
-}
-
-void sol_func(vector<int>& a, vector<int>& ind, int m){
-    int n = a.size();
-    int left = 0, right = n - 1;
-
-    vector<int> h = a;
-
-    for(int i = 0; i < m - 1; i++){
-        sol.push_back({ind[right - i] + 1, ind[i] + 1});
-    }
-
-    for(int i = m - 1; i <= right - m; i++){
-        if(i == right - m) sol.push_back({ind[i + 1] + 1, ind[i] + 1});
-        else sol.push_back({ind[i] + 1, ind[i + 1] + 1});
-    }
-
-    cout << sol.size() << endl;
-    for(auto& [u, v] : sol){
-        cout << u << " " << v << endl;
-    }
 }
 
 void solve(){
-    int n, m; cin >> n >> m;
+    int n; cin >> n;
 
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
+    vector<int> a(n + 1);
+    for(int i = 1; i <= n; i++) cin >> a[i];
 
-    if(m > (n / 2)) {
-        cout << -1 << endl; return;
+    int nn = n;
+    int u, v; 
+
+    adj.assign(n + 1, vector<int>());
+    cnt.assign(n + 1, 0);
+    mx.assign(n + 1, 0);
+    ans.assign(n + 1, 0);
+    ans_s.assign(n + 1, 0);
+    cnt_s.assign(n + 1, 0);
+
+
+
+    while(--nn){
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
     }
 
-    vector<int> ind(n); iota(all(ind), 0LL);
+    dfs(a, 1, 0);
 
-    sort(all(ind), [&](int& x, int& y){
-        return a[x] < a[y];
-    });
+    for(int i = 1; i <= n; i++){
+        cout << ans[i] << " ";
+    }
 
-    sol.clear();
-    if(m == 0) zero_func(a, ind);
-    else sol_func(a, ind, m);
+    cout << endl;
 }
 
 
