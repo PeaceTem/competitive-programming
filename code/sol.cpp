@@ -4,76 +4,85 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 #define int long long
 
-void solve(){
-    int n, q; cin >> n >> q;
+int n, k, x; 
+vector<int> a;
+int maxn = 1e9;
 
-    // int row = 1LL << n;
-    while(q--){
-        string s; cin >> s;
-        int k = 1LL << (n * 2);
-        int row = 1LL << n;
-        int col = 1LL << n;
-        int d = 0;
+bool check(int mid){
+    int cnt = 0;
 
-        if(s == "->"){
-            int r, c; cin >> r >> c;
-            while(true){
-                if(k == 1){
-                  cout << d + 1 << endl;
-                  break;  
-                }
-                int mask = 0;
+    int st = 0;
+    while(cnt < k && st <= x){
+        int ind = upper_bound(all(a), st) - a.begin();
 
-                if(r > row / 2) mask |= 1LL << 1;
-                if(c > col / 2) mask |= 1LL;
-
-                if(mask == 0){
-                    
-                } else if(mask == 1){
-                    d +=  3 * (k / 4);
-                    c -= col / 2;
-                } else if(mask == 2){
-                    d += 2 * (k / 4);
-                    r -= row / 2;
-                } else if(mask == 3){
-                    d += k / 4;
-                    r -= row / 2;
-                    c -= col / 2;
-                }
-
-                row >>= 1;
-                col >>= 1;
-                k >>= 2;
-            }
-
-        } else {
-            int pos; cin >> pos;
-
-            int r = 1, c = 1;
-            while(true){
-                if(k == 1){
-                    cout << r << " " << c << "\n";
-                    break;
-                }
-                if(pos > 3 * (k / 4)){
-                    c += col / 2;
-                    pos -= 3 * (k / 4);
-                } else if(pos > k / 2){
-                    r += row / 2;
-                    pos -=  k / 2;
-                } else if(pos > k / 4){
-                    r += row / 2;
-                    c += row / 2;
-                    pos -= k / 4;
-                }
-
-                col >>= 1;
-                row >>= 1;
-                k >>= 2;
+        if(ind != 0){
+            if(st - a[ind - 1] < mid){
+                st = a[ind - 1] + mid;
+                continue;
             }
         }
+
+        if(ind != n){
+            if(a[ind] - st < mid){
+                st = a[ind] + mid;
+                continue;
+            }
+        }
+
+        cnt++;
+        st++;
     }
 
+    return cnt >= k;
+}
+
+vector<int> ans;
+void regen(int l){
+    int st = 0, cnt = 0;
+
+    while(cnt < k){
+        int ind = upper_bound(all(a), st) - a.begin();
+
+        if(ind != 0){
+            if(st - a[ind - 1] < l){
+                st = a[ind - 1] + l; continue;
+            }
+        }
+
+        if(ind != n){
+            if(a[ind] - st < l){
+                st = a[ind] + l; continue;
+            }
+        }
+
+        ans[cnt] = st;
+        cnt++;
+        st++;
+    }
+}
+
+void solve(){
+    cin >> n >> k >> x;
+
+    a.resize(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
+
+    sort(all(a));
+
+    int l = 0, r = 1e9 + 19;
+
+    while(l + 1 < r){
+        int mid = l + (r - l) / 2;
+
+        if(check(mid)) l = mid;
+        else r = mid;
+    }
+
+    ans.resize(k);
+    regen(l);
+
+    for(int i = 0; i < k; i++) cout << ans[i] << " ";
+    cout << endl;
 }
 
 
