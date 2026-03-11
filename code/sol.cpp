@@ -4,85 +4,92 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 #define int long long
 
-int n, k, x; 
-vector<int> a;
-int maxn = 1e9;
-
-bool check(int mid){
-    int cnt = 0;
-
-    int st = 0;
-    while(cnt < k && st <= x){
-        int ind = upper_bound(all(a), st) - a.begin();
-
-        if(ind != 0){
-            if(st - a[ind - 1] < mid){
-                st = a[ind - 1] + mid;
-                continue;
-            }
-        }
-
-        if(ind != n){
-            if(a[ind] - st < mid){
-                st = a[ind] + mid;
-                continue;
-            }
-        }
-
-        cnt++;
-        st++;
-    }
-
-    return cnt >= k;
-}
-
-vector<int> ans;
-void regen(int l){
-    int st = 0, cnt = 0;
-
-    while(cnt < k){
-        int ind = upper_bound(all(a), st) - a.begin();
-
-        if(ind != 0){
-            if(st - a[ind - 1] < l){
-                st = a[ind - 1] + l; continue;
-            }
-        }
-
-        if(ind != n){
-            if(a[ind] - st < l){
-                st = a[ind] + l; continue;
-            }
-        }
-
-        ans[cnt] = st;
-        cnt++;
-        st++;
-    }
-}
-
 void solve(){
-    cin >> n >> k >> x;
+    int n; cin >> n;
+    string s; cin >> s;
+    int mn = 0, mx = 0;
+    string ss = s;
 
-    a.resize(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
+    for(int i = 0; i < n; i++){
 
-    sort(all(a));
-
-    int l = 0, r = 1e9 + 19;
-
-    while(l + 1 < r){
-        int mid = l + (r - l) / 2;
-
-        if(check(mid)) l = mid;
-        else r = mid;
+        if(s[i] == '0'){
+            if((i - 1 >= 0 && s[i - 1] == '1') && (i + 1 < n && s[i + 1] == '1') && (i + 2 < n && s[i + 2] == '1')){
+                s[i] = '1';
+                s[i + 1] = '0';
+            }
+        }
     }
 
-    ans.resize(k);
-    regen(l);
+    for(int i = 0; i < n; i++){
+        if(s[i] == '1'){
+            if((i - 1 >= 0 && s[i - 1] == '1') && (i + 1 < n && s[i + 1] == '1')) s[i] = '0';
+            else mn++;
+        }
+    }
 
-    for(int i = 0; i < k; i++) cout << ans[i] << " ";
-    cout << endl;
+    // s = ss;
+    // for(int i = n - 1; i >= 0; i--){
+
+    //     if(s[i] == '0'){
+    //         if((i + 1 < n && s[i + 1] == '1') && (i - 1 >= 0 && s[i - 1] == '1') && (i - 2 >= 0 && s[i - 2] == '1')){
+    //             s[i] = '1';
+    //             s[i - 1] = '0';
+    //         }
+    //     }
+    // }
+    // int mn1 = 0;
+    // for(int i = 0; i < n; i++){
+    //     if(s[i] == '1'){
+    //         if((i - 1 >= 0 && s[i - 1] == '1') && (i + 1 < n && s[i + 1] == '1')) s[i] = '0';
+    //         else mn1++;
+    //     }
+    // }
+
+    // mn = min(mn, mn1);
+    // s = ss;
+
+    // for(int i = n - 1; i >= 0; i--){
+        
+    //     if(s[i] == '1'){
+    //         if((i + 1 < n && s[i + 1] == '1') && (i - 1 >= 0 && s[i - 1] == '0') && (i - 2 >= 0 && s[i - 2] == '1')){
+    //             s[i] = '0';
+    //             s[i - 1] = '1';
+    //         }
+    //     }
+    // }
+
+    // int mx1 = 0;
+    // for(int i = 0; i < n; i++){
+    //     if(s[i] == '0'){
+    //         if((i-1 >= 0 && s[i-1] == '1') && (i+1 < n && s[i+1] == '1')){
+    //             mx1++;
+    //             s[i] = '1';
+    //         }
+    //     } else mx1++;
+    // }
+
+    // for(int i = 0; i < n; i++){
+        
+    //     if(ss[i] == '1'){
+    //         if((i - 1 >= 0 && ss[i - 1] == '1') && (i + 1 < n && ss[i + 1] == '0') && (i + 2 < n && ss[i + 2] == '1')){
+    //             ss[i] = '0';
+    //             ss[i + 1] = '1';
+    //         }
+    //     }
+    // }
+
+    for(int i = 0; i < n; i++){
+        if(ss[i] == '0'){
+            if((i-1 >= 0 && ss[i-1] == '1') && (i+1 < n && ss[i+1] == '1')){
+                mx++;
+                ss[i] = '1';
+            }
+        } else mx++;
+    }
+
+    mx = max(mx, mx1);
+    // testing
+    cout << mn << " " << mx << endl;
 }
 
 
@@ -96,4 +103,3 @@ int32_t main() {
     }
     return 0;
 }
-

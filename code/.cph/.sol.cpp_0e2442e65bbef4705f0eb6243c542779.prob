@@ -1,0 +1,1 @@
+{"name":"Local: sol","url":"c:\\Users\\Olumide\\Documents\\cp\\code\\sol.cpp","tests":[{"id":1772892384544,"input":"4\n3\n111\n6\n011011\n7\n1011101\n9\n100101101","output":"1 2\n3 3\n12 12\n0 0\n88329539 88329539"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Olumide\\Documents\\cp\\code\\sol.cpp","group":"local","local":true}
