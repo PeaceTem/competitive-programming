@@ -20,8 +20,23 @@
               "icon": "lucide-file",
               "title": "Tree Roadmap"
             }
+          },
+          {
+            "id": "3d22e0ae6f79e277",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "M365Connect Python.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "M365Connect Python"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -169,10 +184,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "f1031c74cb3f1a05",
+  "active": "3d22e0ae6f79e277",
   "lastOpenFiles": [
-    "6 month Roadmap/String Roadmap.md",
     "6 month Roadmap/Tree Roadmap.md",
+    "M365Connect Python.md",
+    "6 month Roadmap/String Roadmap.md",
     "6 month Roadmap/Math Roadmap.md",
     "6 month Roadmap/Graphs Roadmap.md",
     "6 month Roadmap/DP Roadmap.md",
@@ -200,7 +216,6 @@
     "Fawad.md",
     "Health Informatics.md",
     "Money making Strategies.md",
-    "NumberForces Dev Phases.md",
-    "Vocabulary Development.md"
+    "NumberForces Dev Phases.md"
   ]
 }
