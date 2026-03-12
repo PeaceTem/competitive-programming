@@ -1,105 +1,49 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define endl '\n'
-#define all(x) (x).begin(), (x).end()
-#define int long long
 
-void solve(){
-    int n; cin >> n;
-    string s; cin >> s;
-    int mn = 0, mx = 0;
-    string ss = s;
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    for(int i = 0; i < n; i++){
+    int t; cin >> t;
+    while(t--){
+        int n; cin >> n;
 
-        if(s[i] == '0'){
-            if((i - 1 >= 0 && s[i - 1] == '1') && (i + 1 < n && s[i + 1] == '1') && (i + 2 < n && s[i + 2] == '1')){
-                s[i] = '1';
-                s[i + 1] = '0';
+        vector<string> g(n);
+
+        int minx = 1e9, maxx = -1e9;
+        int miny = 1e9, maxy = -1e9;
+        int mins = 1e9, maxs = -1e9;
+        int mind = 1e9, maxd = -1e9;
+
+        bool has = false;
+
+        for(int i=0;i<n;i++){
+            cin >> g[i];
+            for(int j=0;j<n;j++){
+                if(g[i][j]=='#'){
+                    has = true;
+
+                    minx = min(minx,i);
+                    maxx = max(maxx,i);
+
+                    miny = min(miny,j);
+                    maxy = max(maxy,j);
+
+                    mins = min(mins,i+j);
+                    maxs = max(maxs,i+j);
+
+                    mind = min(mind,i-j);
+                    maxd = max(maxd,i-j);
+                }
             }
         }
+
+        bool square = (maxx-minx<=1 && maxy-miny<=1);
+        bool diag1 = (maxs-mins<=1);
+        bool diag2 = (maxd-mind<=1);
+
+        if(square || diag1 || diag2) cout<<"YES\n";
+        else cout<<"NO\n";
     }
-
-    for(int i = 0; i < n; i++){
-        if(s[i] == '1'){
-            if((i - 1 >= 0 && s[i - 1] == '1') && (i + 1 < n && s[i + 1] == '1')) s[i] = '0';
-            else mn++;
-        }
-    }
-
-    // s = ss;
-    // for(int i = n - 1; i >= 0; i--){
-
-    //     if(s[i] == '0'){
-    //         if((i + 1 < n && s[i + 1] == '1') && (i - 1 >= 0 && s[i - 1] == '1') && (i - 2 >= 0 && s[i - 2] == '1')){
-    //             s[i] = '1';
-    //             s[i - 1] = '0';
-    //         }
-    //     }
-    // }
-    // int mn1 = 0;
-    // for(int i = 0; i < n; i++){
-    //     if(s[i] == '1'){
-    //         if((i - 1 >= 0 && s[i - 1] == '1') && (i + 1 < n && s[i + 1] == '1')) s[i] = '0';
-    //         else mn1++;
-    //     }
-    // }
-
-    // mn = min(mn, mn1);
-    // s = ss;
-
-    // for(int i = n - 1; i >= 0; i--){
-        
-    //     if(s[i] == '1'){
-    //         if((i + 1 < n && s[i + 1] == '1') && (i - 1 >= 0 && s[i - 1] == '0') && (i - 2 >= 0 && s[i - 2] == '1')){
-    //             s[i] = '0';
-    //             s[i - 1] = '1';
-    //         }
-    //     }
-    // }
-
-    // int mx1 = 0;
-    // for(int i = 0; i < n; i++){
-    //     if(s[i] == '0'){
-    //         if((i-1 >= 0 && s[i-1] == '1') && (i+1 < n && s[i+1] == '1')){
-    //             mx1++;
-    //             s[i] = '1';
-    //         }
-    //     } else mx1++;
-    // }
-
-    // for(int i = 0; i < n; i++){
-        
-    //     if(ss[i] == '1'){
-    //         if((i - 1 >= 0 && ss[i - 1] == '1') && (i + 1 < n && ss[i + 1] == '0') && (i + 2 < n && ss[i + 2] == '1')){
-    //             ss[i] = '0';
-    //             ss[i + 1] = '1';
-    //         }
-    //     }
-    // }
-
-    for(int i = 0; i < n; i++){
-        if(ss[i] == '0'){
-            if((i-1 >= 0 && ss[i-1] == '1') && (i+1 < n && ss[i+1] == '1')){
-                mx++;
-                ss[i] = '1';
-            }
-        } else mx++;
-    }
-
-    mx = max(mx, mx1);
-    // testing
-    cout << mn << " " << mx << endl;
-}
-
-
-int32_t main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    int t = 1; 
-    cin >> t;
-    while(t-->0){
-        solve();
-    }
-    return 0;
 }
