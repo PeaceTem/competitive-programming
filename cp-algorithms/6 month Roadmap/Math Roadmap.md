@@ -141,7 +141,7 @@
 
 ---
 
-### **Week 7: Mathematical Functions**
+### **Week 7: Mathematical Functions** `DONE`
 
 **Concepts**
 
@@ -161,7 +161,7 @@
 
 ---
 
-### **Week 8: Chinese Remainder Theorem**
+### **Week 8: Chinese Remainder Theorem** `DONE`
 
 **Concepts**
 

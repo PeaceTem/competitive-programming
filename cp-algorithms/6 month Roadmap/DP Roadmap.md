@@ -146,7 +146,7 @@
 
 ---
 
-### **Week 7: Knapsack (0/1)**
+### **Week 7: Knapsack (0/1)** `DONE`
 
 **Concepts**
 
@@ -168,7 +168,7 @@
 
 ---
 
-### **Week 8: Unbounded Knapsack**
+### **Week 8: Unbounded Knapsack** `DONE`
 
 **Concepts**
 

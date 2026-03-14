@@ -156,7 +156,7 @@
 
 ---
 
-### **Week 8: Disjoint Set Union (DSU)**
+### **Week 8: Disjoint Set Union (DSU)** `DONE`
 
 **Concepts**
 
@@ -178,7 +178,7 @@
 
 ## 🟠 **Month 3: Trees as Data Structures (Weeks 9–12)**
 
-### **Week 9: Binary Trees**
+### **Week 9: Binary Trees** `DONE`
 
 **Concepts**
 

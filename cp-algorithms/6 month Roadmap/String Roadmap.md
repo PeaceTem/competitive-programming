@@ -1,4 +1,4 @@
-# 🔤 6-Month Strings Roadmap (24 Weeks)
+	# 🔤 6-Month Strings Roadmap (24 Weeks)
 
 ---
 
@@ -134,7 +134,7 @@
 
 ---
 
-### **Week 7: String DP (Basics)**
+### **Week 7: String DP (Basics)** `DONE`
 
 **Concepts**
 

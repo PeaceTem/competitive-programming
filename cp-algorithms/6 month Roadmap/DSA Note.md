@@ -1,3 +1,29 @@
+### **Short Proof Note** for Diagonals and Zigzag pattern
+
+
+A zigzag pattern places black cells on **two adjacent diagonals** of the grid.
+
+- Cells on the same `/` diagonal have constant **x + y**.
+    
+- Cells on the same `\` diagonal have constant **x − y**.
+    
+
+In a valid zigzag, every black cell lies on **one of two neighbouring diagonals**, so either:
+
+- `max(x + y) − min(x + y) ≤ 1`, or
+    
+- `max(x − y) − min(x − y) ≤ 1`.
+    
+
+The only other valid configuration is a **2×2 square**, which satisfies:
+
+- `max(x) − min(x) ≤ 1` and
+    
+- `max(y) − min(y) ≤ 1`.
+    
+
+Thus, the grid is valid if **one of these three conditions holds**
+
 
 ## 🔥 Pattern 2: Subset Enumeration
 ```

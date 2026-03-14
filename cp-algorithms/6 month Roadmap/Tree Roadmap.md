@@ -138,7 +138,7 @@
 
 ---
 
-### **Week 7: Tree Paths**
+### **Week 7: Tree Paths** `DONE`
 
 **Concepts**
 
