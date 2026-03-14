@@ -1,50 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define endl '\n'
-#define all(x) (x).begin(), (x).end()
-#define int long long
 
 void solve(){
-    int n, m, l;
-    cin >> n >> m >> l;
-    vector<int> a(2*n);
+    int n; 
+    cin >> n;
 
-    for(int i = 0; i < 2*n; i++) cin >> a[i];
+    vector<double> c(n), p(n);
 
-    if(m == 1){
-        cout << l - a.back() << endl;
-        return;
-    }
-    int k = 0, t = 0;
-    k = (a[0] + 1) / 2;
-    t = 0;
-    for(int i = 1; i < n; i++){
-        int off = a[i] - a[i - 1];
+    for(int i = 0; i < n; i++)
+        cin >> c[i] >> p[i];
 
-        if(off > k){
-            off = k + off;
-            k = (off + 1) / 2;
-            t = off / 2;
-        }
-        else {
-            t = off;
-        }
+    double dp = 0;
 
-        if(i == n - 1) k = min(k, t);
-        else max(k, t);
+    for(int i = n - 1; i >= 0; i--){
+        double f = 1.0 - p[i] / 100.0;
+        dp = max(dp, c[i] + f * dp);
     }
 
-    cout << k + (l - a.back()) << endl;
+    cout << fixed << setprecision(10) << dp << endl;
 }
 
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-int32_t main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    int t = 1; 
+    int t;
     cin >> t;
-    while(t-->0){
+
+    while(t--)
         solve();
-    }
-    return 0;
 }
