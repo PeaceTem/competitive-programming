@@ -7,9 +7,9 @@ using namespace std;
 void solve(){
     int n, m, l;
     cin >> n >> m >> l;
-    vector<int> a(n);
+    vector<int> a(2*n);
 
-    for(int i = 0; i < n; i++) cin >> a[i];
+    for(int i = 0; i < 2*n; i++) cin >> a[i];
 
     if(m == 1){
         cout << l - a.back() << endl;

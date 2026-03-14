@@ -1,49 +1,81 @@
 #include <bits/stdc++.h>
 using namespace std;
+// #define endl '\n'
+#define all(x) (x).begin(), (x).end()
+#define int long long
 
-int main(){
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+void solve(){
+    int n; cin >> n;
 
-    int t; cin >> t;
-    while(t--){
-        int n; cin >> n;
-
-        vector<string> g(n);
-
-        int minx = 1e9, maxx = -1e9;
-        int miny = 1e9, maxy = -1e9;
-        int mins = 1e9, maxs = -1e9;
-        int mind = 1e9, maxd = -1e9;
-
-        bool has = false;
-
-        for(int i=0;i<n;i++){
-            cin >> g[i];
-            for(int j=0;j<n;j++){
-                if(g[i][j]=='#'){
-                    has = true;
-
-                    minx = min(minx,i);
-                    maxx = max(maxx,i);
-
-                    miny = min(miny,j);
-                    maxy = max(maxy,j);
-
-                    mins = min(mins,i+j);
-                    maxs = max(maxs,i+j);
-
-                    mind = min(mind,i-j);
-                    maxd = max(maxd,i-j);
-                }
+    vector<int> a(2*n, -1);
+    a[0] = 0;
+    bool t = true;
+    while(t){
+        vector<int> k;
+        t = false;
+        int pos = -1;
+        for(int i = 0; i < 2*n; i++){
+            if(a[i] == 0) k.push_back(i + 1);
+            else if(a[i] == -1){
+                k.push_back(i + 1);
+                t = true;
+                pos = i;
+                break;
             }
         }
 
-        bool square = (maxx-minx<=1 && maxy-miny<=1);
-        bool diag1 = (maxs-mins<=1);
-        bool diag2 = (maxd-mind<=1);
+        if(t){
+            cout << "? " << k.size() << " ";
 
-        if(square || diag1 || diag2) cout<<"YES\n";
-        else cout<<"NO\n";
+            for(int i = 0; i < (int) k.size(); i++){
+                cout << k[i] << " ";
+            }
+
+            cout << endl;
+            int p;
+            cin >> p;
+            if(p == -1) exit(0);
+
+            a[pos] = p;
+        }
+    }   
+
+    vector<int> kk;
+
+    for(int i = 0; i < 2*n; i++){
+        if(a[i] != 0) kk.push_back(i + 1);
     }
+
+    for(int i = 0; i < 2*n; i++){
+        if(a[i] == 0){
+            cout << "? " << 1 + (int) kk.size() << " " << i + 1 << " ";
+
+            for(int& x : kk) cout << x << " ";
+
+            cout << endl;
+
+            int p;
+            cin >> p;
+            if(p == -1) exit(0);
+            a[i] = p;
+        }
+    }
+
+    cout << "! ";
+
+    for(int& x : a) cout << x << " ";
+
+    cout << endl;
+}
+
+
+int32_t main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    int t = 1; 
+    cin >> t;
+    while(t-->0){
+        solve();
+    }
+    return 0;
 }
