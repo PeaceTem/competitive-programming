@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "b7edbd209711e43b",
+        "id": "6e84802faac2374a",
         "type": "tabs",
         "children": [
           {
-            "id": "f1031c74cb3f1a05",
+            "id": "7c210d2d0b381ac4",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -20,23 +20,8 @@
               "icon": "lucide-file",
               "title": "DP Roadmap"
             }
-          },
-          {
-            "id": "7cb9052ad482616d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Java Data Structures.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Java Data Structures"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -184,15 +169,16 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "7cb9052ad482616d",
+  "active": "7c210d2d0b381ac4",
   "lastOpenFiles": [
     "6 month Roadmap/DP Roadmap.md",
-    "Java Data Structures.md",
-    "6 month Roadmap/Data Structure Roadmap.md",
+    "6 month Roadmap/Java Note.md",
     "6 month Roadmap/Tree Roadmap.md",
     "6 month Roadmap/String Roadmap.md",
-    "6 month Roadmap/Graphs Roadmap.md",
     "6 month Roadmap/Math Roadmap.md",
+    "6 month Roadmap/Graphs Roadmap.md",
+    "Java Data Structures.md",
+    "6 month Roadmap/Data Structure Roadmap.md",
     "6 month Roadmap/DSA Note.md",
     "M365Connect Python.md",
     "6 month Roadmap/CM.md",
@@ -215,7 +201,6 @@
     "Pasted image 20250830142628.png",
     "Elixir & React(Ionic) Puzzle Website - Chess.com.md",
     "Fawad.md",
-    "Health Informatics.md",
-    "Money making Strategies.md"
+    "Health Informatics.md"
   ]
 }
