@@ -181,7 +181,7 @@
 
 ## 🟠 **Month 3: Algebra & Bit Manipulation (Weeks 9–12)**
 
-### **Week 9: Bit Manipulation**
+### **Week 9: Bit Manipulation** `DONE`
 
 **Concepts**
 

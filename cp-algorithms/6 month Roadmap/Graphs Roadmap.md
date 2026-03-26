@@ -187,7 +187,7 @@
 
 ## 🟠 **Month 3: Advanced Traversals & DSU (Weeks 9–12)**
 
-### **Week 9: Disjoint Set Union (DSU)**
+### **Week 9: Disjoint Set Union (DSU)** `DONE`
 
 **Concepts**
 
