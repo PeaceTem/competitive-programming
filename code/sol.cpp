@@ -4,87 +4,34 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 #define int long long
 
+const int SQ = 500;
 void solve(){
-    int r, g, b; cin >> r >> g >> b;
-    char first, second, third;
-    int fi, se, th;
-    if(r >= g && r >= b){
-        first = 'R';
-        fi = r;
-        if(g >= b){
-            second = 'G';
-            third = 'B';
-            se = g;
-            th = b;
-        } else {
-            second = 'B';
-            third = 'G';
-            se = b;
-            th = g;
-        }
-    } else if(g >= r && g >= b){
-        first = 'G';
-        fi = g;
-        if(r >= b){
-            second = 'R';
-            third = 'B';
-            se = r;
-            th = b;
-        } else {
-            second = 'B';
-            third = 'R';
-            se = b;
-            th = r;
-        }
-    } else if(b >= r && b >= g){
-        first = 'B';
-        fi = b;
-        if(r >= g){
-            second = 'R';
-            third = 'G';
-            se = r;
-            th = g;
-        } else {
-            second = 'G';
-            third = 'R';
-            se = g;
-            th = r;
+    int n; cin >> n;
+
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
+
+    int ans = 0;
+
+    for(int i = 0; i < n; i++){
+        for(int j = 1; j < 500; j++){
+            int k = a[i] * j;
+            if(k + i >= n) break;
+            if(a[k + i] == j) ans++;
         }
     }
 
-    bool k = fi >= (se + th);
-    bool kk = fi % 2 == 0;
-    bool f = true;
-    while(fi > 0 && se > 0){
-        if(f){
-            if(k) cout << first << second;
-            else cout << second << first;
-            fi--;
-            se--;
-            if(th > 0) f = !f;
-        } else if(th > 0){
-            if(k) cout << first << third;
-            else cout << third << first;
-            f = !f;
-            fi--;
-            th--;
+    for(int i = 0; i < n; i++){
+        if(a[i] >= 500){
+            for(int j = 1; j < 500; j++){
+                int k = a[i] * j;
+                if(i - k < 0) break;
+                if(a[i - k] == j) ans++;
+            }
         }
     }
 
-    if(k) cout << first;
-    else {
-        
-        while(se > 0 && th > 0){
-            if(kk) cout << third << second;
-            else cout << second << third;
-            se--; th--;
-        }
-
-        if(se > 0) cout << second;
-        if(th > 0) cout << third;
-    }
-
-    cout << endl;
+    cout << ans << endl;
 }
 
 
