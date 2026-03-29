@@ -4,36 +4,57 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 #define int long long
 
-const int SQ = 500;
+
 void solve(){
-    int n; cin >> n;
+    int n, k; cin >> n >> k;
 
-    vector<int> a(n);
+    vector<int> a(n), b(n);
     for(int i = 0; i < n; i++) cin >> a[i];
+    for(int i = 0; i < n; i++) cin >> b[i];
 
-    int ans = 0;
+    // unordered_set<int> st;
+    // vector<bool> freq(n + 1);
 
-    for(int i = 0; i < n; i++){
-        for(int j = 1; j < 500; j++){
-            int k = a[i] * j;
-            if(k + i >= n) break;
-            if(a[k + i] == j) ans++;
-        }
-    }
+    // for(int i = 0; i < n; i++){
+    //     if(b[i] != -1){
+    //         if(freq[b[i]]){
+    //             cout << "NO" << endl; return;
+    //         }
+    //         freq[b[i]] = true;
+    //     }
+    // }
 
-    for(int i = 0; i < n; i++){
-        if(a[i] >= 500){
-            for(int j = 1; j < 500; j++){
-                int k = a[i] * j;
-                if(i - k < 0) break;
-                if(a[i - k] == j) ans++;
+    for(int i = 0; i < n - k; i++){
+        if(b[i] != -1){
+            if(b[i] != a[i]){
+                cout << "NO" << endl; return;
             }
         }
     }
 
-    cout << ans << endl;
-}
+    for(int i = k; i < n; i++){
+        if(b[i] != -1){
+            if(b[i] != a[i]){
+                cout << "NO" << endl; return;
+            }
+        }
+    }
+    unordered_multiset<int> st;
+    for(int i = n - k; i < k; i++){
+        st.insert(a[i]);
+    }
 
+    for(int i = n - k; i < k; i++){
+        if(b[i] != -1){
+            if(!st.count(b[i])){
+                cout << "NO" << endl; return;
+            }
+            st.erase(st.find(b[i]));
+        }
+    }
+
+    cout << "YES" << endl;
+}
 
 int32_t main() {
     std::ios::sync_with_stdio(false);
