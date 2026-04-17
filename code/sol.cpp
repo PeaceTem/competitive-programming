@@ -4,58 +4,34 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 #define int long long
 
-
 void solve(){
-    int n, k; cin >> n >> k;
+    int p, q; cin >> p >> q;
 
-    vector<int> a(n), b(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    for(int i = 0; i < n; i++) cin >> b[i];
+    int sides = p + 2 * q;
 
-    // unordered_set<int> st;
-    // vector<bool> freq(n + 1);
+    // I need to find 2 numbers that n + m + 2nm = p + 2q sides
 
-    // for(int i = 0; i < n; i++){
-    //     if(b[i] != -1){
-    //         if(freq[b[i]]){
-    //             cout << "NO" << endl; return;
-    //         }
-    //         freq[b[i]] = true;
-    //     }
-    // }
+    int inc = 3;
+    int start = 4;
+    int x;
+    int n = 1, m;
+    int k;
+    for(; start <= sides; start += 3, inc += 2, n++){
+        x = (sides - start) % inc;
+        if(x != 0) continue;
 
-    for(int i = 0; i < n - k; i++){
-        if(b[i] != -1){
-            if(b[i] != a[i]){
-                cout << "NO" << endl; return;
-            }
-        }
+        m = (1 + (sides - start) / inc);
+
+        if(n + m + 2 * n * m != sides) continue;
+
+        cout << n << " " << m << endl;
+        return;
     }
 
-    for(int i = k; i < n; i++){
-        if(b[i] != -1){
-            if(b[i] != a[i]){
-                cout << "NO" << endl; return;
-            }
-        }
-    }
-    unordered_multiset<int> st;
-    for(int i = n - k; i < k; i++){
-        st.insert(a[i]);
-    }
 
-    for(int i = n - k; i < k; i++){
-        if(b[i] != -1){
-            if(!st.count(b[i])){
-                cout << "NO" << endl; return;
-            }
-            st.erase(st.find(b[i]));
-        }
-    }
-
-    cout << "YES" << endl;
+    cout << -1 << endl;
 }
-
+ 
 int32_t main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);

@@ -3,6 +3,9 @@ using namespace std;
 #define endl '\n'
 
 void solve(){
+    int p, q; cin >> p >> q;
+
+    int sides = p + 2 * q;
     
 }
 
