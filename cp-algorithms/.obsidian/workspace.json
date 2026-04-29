@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "6e84802faac2374a",
+        "id": "6633315608c25685",
         "type": "tabs",
         "children": [
           {
-            "id": "7c210d2d0b381ac4",
+            "id": "ab86672382f7265e",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -169,18 +169,20 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "7c210d2d0b381ac4",
+  "active": "ab86672382f7265e",
   "lastOpenFiles": [
     "6 month Roadmap/String Roadmap.md",
     "6 month Roadmap/Math Roadmap.md",
-    "6 month Roadmap/Invariant Problems.md",
-    "6 month Roadmap/DP Roadmap.md",
-    "6 month Roadmap/Data Structure Roadmap.md",
     "6 month Roadmap/Graphs Roadmap.md",
-    "6 month Roadmap/Java Note.md",
     "6 month Roadmap/Tree Roadmap.md",
-    "Java Data Structures.md",
+    "6 month Roadmap/Data Structure Roadmap.md",
+    "6 month Roadmap/Java Note.md",
+    "6 month Roadmap/DP Roadmap.md",
     "6 month Roadmap/DSA Note.md",
+    "6 month Roadmap/Agentic RAG architecture.md",
+    "AI ML Roadmap.md",
+    "6 month Roadmap/Invariant Problems.md",
+    "Java Data Structures.md",
     "M365Connect Python.md",
     "6 month Roadmap/CM.md",
     "6 month Roadmap/Mini SQS.md",
@@ -199,8 +201,6 @@
     "Daily Activities.md",
     "Pasted image 20251210024909.png",
     "Pasted image 20250830142628.png",
-    "Elixir & React(Ionic) Puzzle Website - Chess.com.md",
-    "Fawad.md",
-    "Health Informatics.md"
+    "Elixir & React(Ionic) Puzzle Website - Chess.com.md"
   ]
 }

@@ -196,7 +196,7 @@
 
 ---
 
-### **Week 10: Binary Search Trees**
+### **Week 10: Binary Search Trees** `DONE`
 
 **Concepts**
 
